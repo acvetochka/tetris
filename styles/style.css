@@ -32,10 +32,37 @@ body {
 
 }
 
-.grid>.O {
+.figure {
+    -webkit-box-shadow: inset 1px 1px 4px 5px rgba(0,0,0,0.47);
+    box-shadow: inset 1px 1px 4px 5px rgba(0,0,0,0.47);
+}
+
+.grid > .O {
     background-color: rgb(48, 118, 66);
 }
 
-.grid>.J {
+.grid > .J {
     background-color: rgb(155, 29, 29);
 }
+
+.grid > .L {
+    background-color: rgb(234, 121, 9);
+}
+
+.grid > .T {
+    background-color: rgb(226, 219, 14);
+}
+
+.grid > .Z {
+    background-color: rgb(41, 149, 216);
+}
+
+.grid > .S {
+    background-color: rgb(211, 20, 109);
+}
+
+.grid > .I {
+    background-color: rgb(130, 9, 196);
+}
+
+

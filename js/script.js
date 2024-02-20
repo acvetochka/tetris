@@ -1,4 +1,4 @@
-import {PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES} from "./variables.js";
+import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES } from "./variables.js";
 
 function convertPositionToIndex(row, column) {
     return row * PLAYFIELD_COLUMNS + column;
@@ -15,24 +15,22 @@ function generatePlayField() {
 
     playfield = new Array(PLAYFIELD_ROWS).fill()
         .map(() => new Array(PLAYFIELD_COLUMNS).fill(0))
-    // console.log(playfield)
-
 }
 
 function generateTetromino() {
+    const randomFigure = Math.floor(Math.random() * TETROMINO_NAMES.length);
 
-    const name = TETROMINO_NAMES[1];
+    const name = TETROMINO_NAMES[randomFigure]
     const matrix = TETROMINOES[name];
-    console.log(matrix);
+    const  column = Math.round((PLAYFIELD_COLUMNS - matrix.length)/2);
 
     tetromino = {
         name,
         matrix,
-        row: 3,
-        column: 5
+        row: 0,
+        column,
     }
 }
-
 
 generatePlayField();
 generateTetromino();
@@ -44,8 +42,7 @@ function drawPlayField() {
             if (!playfield[row][column]) continue;
             const name = playfield[row][column];
             const cellIndex = convertPositionToIndex(row, column);
-            console.log(cellIndex);
-            cells[cellIndex].classList.add(name)
+            cells[cellIndex].classList.add(name, "figure")
         }
     }
 }
@@ -54,7 +51,6 @@ function drawTetromino() {
     const name = tetromino.name;
     const tetrominoMatrixSize = tetromino.matrix.length;
 
-
     for (let row = 0; row < tetrominoMatrixSize; row++) {
         for (let column = 0; column < tetrominoMatrixSize; column++) {
             if (!tetromino.matrix[row][column]) continue;
@@ -62,14 +58,11 @@ function drawTetromino() {
                 tetromino.row + row,
                 tetromino.column + column
             );
-            console.log(cellIndex);
-            cells[cellIndex].classList.add(name)
+            cells[cellIndex].classList.add(name, "figure")
         }
 
     }
 }
-
-
 
 function draw() {
     cells.forEach(cell => cell.removeAttribute("class"));
@@ -77,7 +70,7 @@ function draw() {
     drawTetromino();
 }
 
-draw()
+draw();
 
 document.addEventListener('keydown', onKeyDown);
 
@@ -107,4 +100,8 @@ function moveTetrominoLeft() {
 
 function moveTetrominoRight() {
     tetromino.column += 1;
+}
+
+function moveTetrominoSpace() {
+    tetromino.row -= 1;
 }
