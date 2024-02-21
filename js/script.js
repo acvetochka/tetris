@@ -1,4 +1,5 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES } from "./variables.js";
+import { maxInEachRow } from "./maxInEachRow.js";
 
 function convertPositionToIndex(row, column) {
     return row * PLAYFIELD_COLUMNS + column;
@@ -22,7 +23,9 @@ function generateTetromino() {
 
     const name = TETROMINO_NAMES[randomFigure]
     const matrix = TETROMINOES[name];
-    const  column = Math.round((PLAYFIELD_COLUMNS - matrix.length)/2);
+
+    const maxRow = maxInEachRow(matrix);
+    const  column = Math.floor((PLAYFIELD_COLUMNS - maxRow)/2);
 
     tetromino = {
         name,
