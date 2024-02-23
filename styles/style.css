@@ -12,6 +12,12 @@ body {
 
 }
 
+.tetrisWrapper {
+    padding: 7vh 3vw;
+    background-color: black;
+    border-radius: 3vw;
+}
+
 .grid {
     background-color: rgb(39, 23, 83);
     display: grid;
@@ -25,16 +31,16 @@ body {
 }
 
 .grid>div {
-    height: min(4vh, 7vw);
-    width: min(4vh, 7vw);
+    height: min(3vh, 5vw);
+    width: min(3vh, 5vw);
     background-color: rgba(9, 9, 9, 0.2);
     border-radius: 0.3vh;
 
 }
 
 .figure {
-    -webkit-box-shadow: inset 1px 1px 4px 5px rgba(0,0,0,0.47);
-    box-shadow: inset 1px 1px 4px 5px rgba(0,0,0,0.47);
+    -webkit-box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0,0,0,0.47);
+    box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0,0,0,0.47);
 }
 
 .grid > .O {
@@ -62,7 +68,7 @@ body {
 }
 
 .grid > .I {
-    background-color: rgb(130, 9, 196);
+    background-color: rgb(162, 30, 234);
 }
 
 
