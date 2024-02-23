@@ -1,6 +1,6 @@
 export const PLAYFIELD_COLUMNS = 10;
 export const PLAYFIELD_ROWS = 20;
-export const TETROMINO_NAMES = ['O', "J", "L", "T", "Z", "S", "I"];
+export const TETROMINO_NAMES = ['O', "J", "L", "T", "Z", "S", "I", "C", "Q"];
 
 export const TETROMINOES = {
     "O": [

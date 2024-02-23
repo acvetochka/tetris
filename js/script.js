@@ -1,6 +1,7 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES } from "./variables.js";
 import { maxInEachRow } from "./maxInEachRow.js";
 
+
 function convertPositionToIndex(row, column) {
     return row * PLAYFIELD_COLUMNS + column;
 }
@@ -25,7 +26,7 @@ function generateTetromino() {
     const matrix = TETROMINOES[name];
 
     const maxRow = maxInEachRow(matrix);
-    const  column = Math.floor((PLAYFIELD_COLUMNS - maxRow)/2);
+    const column = Math.floor((PLAYFIELD_COLUMNS - maxRow) / 2);
 
     tetromino = {
         name,
@@ -35,8 +36,21 @@ function generateTetromino() {
     }
 }
 
+function placeTetromino() {
+    const matrixSize = tetromino.matrix.length;
+    for (let row = 0; row < matrixSize; row++) {
+        for (let column = 0; column < matrixSize; column++) {
+            if (tetromino.matrix[row][column]) {
+                playfield[tetromino.row + row][tetromino.column + column] = tetromino.name;
+            }
+        }
+    }
+    generateTetromino();
+}
+
 generatePlayField();
 generateTetromino();
+
 const cells = document.querySelectorAll('.grid div');
 
 function drawPlayField() {
@@ -63,7 +77,6 @@ function drawTetromino() {
             );
             cells[cellIndex].classList.add(name, "figure")
         }
-
     }
 }
 
@@ -71,14 +84,45 @@ function draw() {
     cells.forEach(cell => cell.removeAttribute("class"));
     drawPlayField();
     drawTetromino();
+    // moveTetromino()
+}
+
+function rotateTetromino() {
+    const oldMatrix = tetromino.matrix;
+    const rotatedMatrix = rotateMatrix(tetromino.matrix);
+    tetromino.matrix = rotatedMatrix;
+    if (!isValid) {
+        tetromino.matrix = oldMatrix;
+    }
+}
+
+function rotateMatrix(matrixTetromino) {
+    const N = matrixTetromino.length;
+    const rotateMatrix = [];
+    for (let i = 0; i < N; i++) {
+        rotateMatrix[i] = [];
+        for (let j = 0; j < N; j++) {
+            rotateMatrix[i][j] = matrixTetromino[N - j - 1][i]
+        }
+    }
+    return rotateMatrix;
+
 }
 
 draw();
+
+function rotate() {
+    rotateTetromino();
+    draw();
+}
 
 document.addEventListener('keydown', onKeyDown);
 
 function onKeyDown(e) {
     switch (e.key) {
+        case "ArrowUp":
+            rotate();
+            break;
         case "ArrowDown":
             moveTetrominoDown();
             break;
@@ -93,18 +137,70 @@ function onKeyDown(e) {
     draw();
 }
 
+
 function moveTetrominoDown() {
     tetromino.row += 1;
+    if (!isValid()) {
+        tetromino.row -= 1;
+        placeTetromino();
+    }
 }
 
 function moveTetrominoLeft() {
     tetromino.column -= 1;
+    if (!isValid()) {
+        tetromino.column += 1;
+    }
 }
 
 function moveTetrominoRight() {
     tetromino.column += 1;
+    if (!isValid()) {
+        tetromino.column -= 1;
+    }
 }
 
-function moveTetrominoSpace() {
-    tetromino.row -= 1;
+// function moveTetromino() {
+//     const tetrominoMatrixSize = tetromino.matrix.length;
+
+//     // for (let row = 0; row < tetrominoMatrixSize; row++) {
+//     // for (let column = 0; column < tetrominoMatrixSize; column++) {
+//         setTimeout(()=> {
+//             if (isValid()) {
+//                 moveTetrominoDown();
+//             }
+//             draw();
+//         }, 1000)
+
+//     // }
+//     // }
+// }
+
+
+function isValid() {
+    const matrixSize = tetromino.matrix.length;
+    for (let row = 0; row < matrixSize; row++) {
+        for (let column = 0; column < matrixSize; column++) {
+            // if (tetromino.matrix[row][column]) continue;
+            if (isOutsideOfGameboard(row, column)) {
+                return false;
+            }
+            if (hasCollisions(row, column)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function isOutsideOfGameboard(row, column) {
+    return tetromino.matrix[row][column] &&
+        (tetromino.column + column < 0 ||
+            tetromino.column + column >= PLAYFIELD_COLUMNS ||
+            tetromino.row + row >= PLAYFIELD_ROWS)
+}
+
+function hasCollisions(row, column) {
+    return tetromino.matrix[row][column]
+        && playfield[tetromino.row + row][tetromino.column + column];
 }
