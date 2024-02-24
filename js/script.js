@@ -1,5 +1,6 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES } from "./variables.js";
 import { maxInEachRow } from "./maxInEachRow.js";
+import { randomColor } from "./randomColor.js";
 
 
 function convertPositionToIndex(row, column) {
@@ -28,11 +29,13 @@ function generateTetromino() {
     const maxRow = maxInEachRow(matrix);
     const column = Math.floor((PLAYFIELD_COLUMNS - maxRow) / 2);
 
+
     tetromino = {
         name,
         matrix,
         row: 0,
         column,
+        color: randomColor()
     }
 }
 
@@ -41,11 +44,15 @@ function placeTetromino() {
     for (let row = 0; row < matrixSize; row++) {
         for (let column = 0; column < matrixSize; column++) {
             if (tetromino.matrix[row][column]) {
-                playfield[tetromino.row + row][tetromino.column + column] = tetromino.name;
+                playfield[tetromino.row + row][tetromino.column + column] = {
+                    name: tetromino.name,
+                    color: tetromino.color,
+                };
             }
         }
     }
     generateTetromino();
+    tetromino.color = randomColor();
 }
 
 generatePlayField();
@@ -59,7 +66,12 @@ function drawPlayField() {
             if (!playfield[row][column]) continue;
             const name = playfield[row][column];
             const cellIndex = convertPositionToIndex(row, column);
-            cells[cellIndex].classList.add(name, "figure")
+            const cellData = playfield[row][column];
+
+            if (!cells[cellIndex].classList.contains("figure")) {
+                cells[cellIndex].classList.add("figure");
+                cells[cellIndex].style.backgroundColor = cellData.color;
+            }
         }
     }
 }
@@ -75,16 +87,19 @@ function drawTetromino() {
                 tetromino.row + row,
                 tetromino.column + column
             );
-            cells[cellIndex].classList.add(name, "figure")
+            cells[cellIndex].classList.add("figure");
+            cells[cellIndex].style.backgroundColor = tetromino.color;
         }
     }
 }
 
 function draw() {
-    cells.forEach(cell => cell.removeAttribute("class"));
+    cells.forEach(cell => {
+        cell.removeAttribute("class");
+        cell.removeAttribute("style")}
+        );
     drawPlayField();
     drawTetromino();
-    // moveTetromino()
 }
 
 function rotateTetromino() {
