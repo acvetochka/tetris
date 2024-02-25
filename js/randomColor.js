@@ -11,8 +11,6 @@ const colors = [
 ]
 
 export function randomColor() {
-
     const random = colors[Math.floor(Math.random()*colors.length)];
-    console.log(random);
     return random;
 }
