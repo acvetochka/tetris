@@ -1,12 +1,34 @@
-import { rotateTetromino, draw, isValid, clearGameInterval} from "../script.js";
+import { draw, clearGameInterval} from "../script.js";
 import { tetromino, playfield, generateTetromino } from "./generate.js";
 import { clearFullRows } from "./clearRows.js";
-import { randomColor } from "./randomColor.js";
+import { randomColor } from "./helpers/randomColor.js";
+import { isValid } from "./validation.js";
 
 function rotate() {
     rotateTetromino();
     draw();
 }
+export function rotateTetromino() {
+    const oldMatrix = tetromino.matrix;
+    const rotatedMatrix = rotateMatrix(tetromino.matrix);
+    tetromino.matrix = rotatedMatrix;
+    if (!isValid) {
+        tetromino.matrix = oldMatrix;
+    }
+}
+
+function rotateMatrix(matrixTetromino) {
+    const N = matrixTetromino.length;
+    const rotateMatrix = [];
+    for (let i = 0; i < N; i++) {
+        rotateMatrix[i] = [];
+        for (let j = 0; j < N; j++) {
+            rotateMatrix[i][j] = matrixTetromino[N - j - 1][i]
+        }
+    }
+    return rotateMatrix;
+}
+
 
 function placeTetromino() {
     const matrixSize = tetromino.matrix.length;

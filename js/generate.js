@@ -1,6 +1,6 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES } from "./variables.js";
-import { maxInEachRow } from "./maxInEachRow.js";
-import { randomColor } from "./randomColor.js";
+import { maxInEachRow } from "./helpers/maxInEachRow.js";
+import { randomColor } from "./helpers/randomColor.js";
 
 let playfield;
 let tetromino;

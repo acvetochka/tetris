@@ -1,9 +1,6 @@
-import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES } from "./js/variables.js";
-// import { maxInEachRow } from "./js/maxInEachRow.js";
-// import { randomColor } from "./js/randomColor.js";
+import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./js/variables.js";
 import { playfield, tetromino, rowTetro, generatePlayField, generateTetromino } from "./js/generate.js"
-import { onKeyDown, placeTetromino, moveTetrominoDown } from "./js/move.js";
-// import { clearFullRows } from "./js/clearRows.js";
+import { onKeyDown, moveTetrominoDown } from "./js/move.js";
 
 let gameInterval;
 
@@ -61,56 +58,6 @@ export function draw() {
     drawTetromino();
 }
 
-export function rotateTetromino() {
-    const oldMatrix = tetromino.matrix;
-    const rotatedMatrix = rotateMatrix(tetromino.matrix);
-    tetromino.matrix = rotatedMatrix;
-    if (!isValid) {
-        tetromino.matrix = oldMatrix;
-    }
-}
-
-function rotateMatrix(matrixTetromino) {
-    const N = matrixTetromino.length;
-    const rotateMatrix = [];
-    for (let i = 0; i < N; i++) {
-        rotateMatrix[i] = [];
-        for (let j = 0; j < N; j++) {
-            rotateMatrix[i][j] = matrixTetromino[N - j - 1][i]
-        }
-    }
-    return rotateMatrix;
-}
-
-
-export function isValid() {
-    const matrixSize = tetromino.matrix.length;
-    for (let row = 0; row < matrixSize; row++) {
-        for (let column = 0; column < matrixSize; column++) {
-            // if (tetromino.matrix[row][column]) continue;
-            if (isOutsideOfGameboard(row, column)) {
-                return false;
-            }
-            if (hasCollisions(row, column)) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-function isOutsideOfGameboard(row, column) {
-    return tetromino.matrix[row][column] &&
-        (tetromino.column + column < 0 ||
-            tetromino.column + column >= PLAYFIELD_COLUMNS ||
-            tetromino.row + row >= PLAYFIELD_ROWS)
-}
-
-function hasCollisions(row, column) {
-    return tetromino.matrix[row][column]
-        && playfield[tetromino.row + row][tetromino.column + column];
-}
-
 
 function startInterval() {
     gameInterval = setInterval(() => {
@@ -132,4 +79,4 @@ draw();
 startInterval();
 document.addEventListener('keydown', onKeyDown);
 
-// export { gameInterval }
+
