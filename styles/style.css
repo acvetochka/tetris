@@ -9,10 +9,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
+}
 
+main {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
 }
 
 .tetrisWrapper {
+    position: relative;
     padding: 7vh 3vw;
     background-color: black;
     border-radius: 3vw;
@@ -39,11 +47,30 @@ body {
 }
 
 .figure {
-    -webkit-box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0,0,0,0.47);
-    box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0,0,0,0.47);
+    -webkit-box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0, 0, 0, 0.47);
+    box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0, 0, 0, 0.47);
 }
 
-.grid > .O {
+.scoreWrapper {
+    display: flex;
+    font-size: 40px;
+}
+
+.notification {
+position: absolute;
+padding: 10px;
+top: 50%;
+left: 50%;
+background:rgb(39, 23, 83);
+transform: translate(-50%, -50%);
+font-size: 32px;
+text-wrap: nowrap;
+/* width: 100%; */
+color: white;
+
+}
+
+/* .grid > .O {
     background-color: rgb(48, 118, 66);
 }
 
@@ -77,7 +104,4 @@ body {
 
 .grid > .Q {
     background-color: rgb(0, 67, 255)
-}
-
-
-
+} */

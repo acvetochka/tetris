@@ -1,4 +1,4 @@
-import { draw, clearGameInterval} from "../script.js";
+import { draw, clearGameInterval, notification} from "../script.js";
 import { tetromino, playfield, generateTetromino } from "./generate.js";
 import { clearFullRows } from "./clearRows.js";
 import { randomColor } from "./helpers/randomColor.js";
@@ -77,7 +77,8 @@ function moveTetrominoDown() {
         generateTetromino();
         if (!isValid()) {
             clearGameInterval();
-            alert("GAME OVER");
+            notification.innerHTML = "GAME OVER";
+            // alert("GAME OVER");
         }
     }
 }

@@ -3,6 +3,7 @@ import { playfield, tetromino, rowTetro, generatePlayField, generateTetromino } 
 import { onKeyDown, moveTetrominoDown } from "./js/move.js";
 
 let gameInterval;
+export const notification = document.querySelector(".notification");
 
 generatePlayField();
 generateTetromino();
@@ -39,10 +40,10 @@ function drawTetromino() {
                 tetromino.row + row,
                 tetromino.column + column
             );
-            // if(rowTetro >= row) {
+            if (cells[cellIndex]) {
                 cells[cellIndex].classList.add("figure");
                 cells[cellIndex].style.backgroundColor = tetromino.color;
-            // }
+            }
 
         }
     }
@@ -50,8 +51,10 @@ function drawTetromino() {
 
 export function draw() {
     cells.forEach(cell => {
-        cell.removeAttribute("class");
-        cell.removeAttribute("style")
+        if (cell) {
+            cell.removeAttribute("class");
+            cell.removeAttribute("style")
+        }
     }
     );
     drawPlayField();
