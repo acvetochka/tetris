@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tetris Game</title>
     <link rel="stylesheet" href="./styles/style.css" />
 </head>
 
@@ -14,9 +14,19 @@
             <div class="grid"></div>
             <div class="notification"></div>
         </div>
-        <div class="scoreWrapper">
-            <p>Score: </p>
-            <span class="score"> 0</span>
+        <div>
+            <div class="scoreWrapper">
+                <p>Score: </p>
+                <span class="score"> 0</span>
+            </div>
+            <div class="recordWrapper">
+                <p>Record: </p>
+                <span class="record"> 0</span>
+            </div>
+            <div class="buttonWrapper">
+                <button class="startButton">Start</button>
+                <!-- <button class="pauseButton">Pause</button> -->
+            </div>
         </div>
     </main>
     <script src="./script.js" type="module"></script>

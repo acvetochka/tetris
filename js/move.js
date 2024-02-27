@@ -78,6 +78,7 @@ function moveTetrominoDown() {
         if (!isValid()) {
             clearGameInterval();
             notification.innerHTML = "GAME OVER";
+            // notification.style.height = "auto";
             // alert("GAME OVER");
         }
     }

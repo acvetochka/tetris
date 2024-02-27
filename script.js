@@ -8,6 +8,8 @@ export const notification = document.querySelector(".notification");
 generatePlayField();
 generateTetromino();
 const cells = document.querySelectorAll('.grid div');
+const startBtn = document.querySelector(".buttonWrapper");
+// const pauseBtn = document.querySelector(".pauseButton");
 
 function convertPositionToIndex(row, column) {
     return row * PLAYFIELD_COLUMNS + column;
@@ -66,7 +68,7 @@ function startInterval() {
     gameInterval = setInterval(() => {
         moveTetrominoDown();
     }, 1000);
-    
+
     setInterval(() => {
         draw();
     }, 50);
@@ -77,9 +79,39 @@ export function clearGameInterval() {
 }
 
 
-draw();
+// draw();
 
-startInterval();
+
+function onClickStart(e) {
+    e.preventDefault();
+
+    const btn = e.target;
+
+    if (btn.nodeName !== "BUTTON") return;
+    switch (btn.textContent) {
+        case "Start":
+            startInterval();
+            btn.textContent = "Pause"
+            notification.innerHTML = "";
+            break;
+        case "Pause":
+            clearGameInterval();
+            btn.textContent = "Start";
+            notification.innerHTML = "Pause";
+            break;
+            default:
+                break;
+    }
+    // if (btn.textContent === "Start") {
+
+    // }
+    // if (btn.textContent === "Pause") {
+
+    // }
+}
+
+startBtn.addEventListener('click', onClickStart);
+
 document.addEventListener('keydown', onKeyDown);
 
 
