@@ -1,12 +1,15 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./js/variables.js";
 import { playfield, tetromino, rowTetro, generatePlayField, generateTetromino } from "./js/generate.js"
 import { onKeyDown, moveTetrominoDown } from "./js/move.js";
+import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
 
 let gameInterval;
 export const notification = document.querySelector(".notification");
+export const icon = document.querySelector(".notification use");
 
 generatePlayField();
 generateTetromino();
+
 const cells = document.querySelectorAll('.grid div');
 const startBtn = document.querySelector(".buttonWrapper");
 // const pauseBtn = document.querySelector(".pauseButton");
@@ -92,12 +95,16 @@ function onClickStart(e) {
         case "Start":
             startInterval();
             btn.textContent = "Pause"
-            notification.innerHTML = "";
+            // notification.innerHTML = "";
+            icon.removeAttribute('href');
+            notification.style.height=0;
             break;
         case "Pause":
             clearGameInterval();
             btn.textContent = "Start";
-            notification.innerHTML = "Pause";
+            icon.setAttribute('href', "./assets/sprite.svg#icon-play2")
+            notification.style.height="auto";
+            // notification.innerHTML = "Pause";
             break;
             default:
                 break;
@@ -110,6 +117,7 @@ function onClickStart(e) {
     // }
 }
 
+// writeToLocalStorage();
 startBtn.addEventListener('click', onClickStart);
 
 document.addEventListener('keydown', onKeyDown);

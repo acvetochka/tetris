@@ -59,4 +59,4 @@ function moveRowsDown(startRow) {
     }
 }
 
-export {clearFullRows}
+export {clearFullRows, totalPoints}

@@ -1,9 +1,10 @@
 import { draw, clearGameInterval, notification} from "../script.js";
 import { tetromino, playfield, generateTetromino } from "./generate.js";
-import { clearFullRows } from "./clearRows.js";
+import { clearFullRows, totalPoints } from "./clearRows.js";
 import { randomColor } from "./helpers/randomColor.js";
 import { isValid } from "./validation.js";
 
+const record = document.querySelector('.record')
 function rotate() {
     rotateTetromino();
     draw();
@@ -78,6 +79,13 @@ function moveTetrominoDown() {
         if (!isValid()) {
             clearGameInterval();
             notification.innerHTML = "GAME OVER";
+            // if(localStorage.getItem('record')>totalPoints){
+            //     record.innerHTML = localStorage.getItem('record')
+            // } else {
+            //     localStorage.setItem("record", totalPoints);
+            //     record.innerHTML = totalPoints;
+            // }
+            
             // notification.style.height = "auto";
             // alert("GAME OVER");
         }

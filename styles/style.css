@@ -67,7 +67,7 @@ main {
     text-wrap: nowrap;
     /* width: 100%; */
     color: white;
-    /* height: 0; */
+    height: auto;
 }
 
 /* .grid > .O {
