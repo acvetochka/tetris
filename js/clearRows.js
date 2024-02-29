@@ -22,18 +22,29 @@ function calculatePoints(clearedRows) {
 
 function clearFullRows() {
     let clearedRowsCount = 0; // Лічильник видалених рядів
-
+    // console.log(PLAYFIELD_ROWS);
+    // for (let row = PLAYFIELD_ROWS - 1; row >= 0; row--) {
+    //     // console.log(row)
+    //     if (isRowFull(row)) {
+    //         clearedRowsCount++;
+    //         removeRow(row);
+    //         // console.log(row)
+    //         moveRowsDown(row);
+    //         console.log(clearedRowsCount)
+    //     }
+    // }
     for (let row = PLAYFIELD_ROWS - 1; row >= 0; row--) {
         if (isRowFull(row)) {
-            removeRow(row);
-            // console.log(row)
-            clearedRowsCount++;
-            // console.log(clearedRowsCount)
-            moveRowsDown(row);
+            setTimeout(()=> {
+                removeRow(row);
+                moveRowsDown(row);
+            }, 50)
+            clearedRowsCount += 1;   
         }
     }
-        totalPoints += calculatePoints(clearedRowsCount);
-        score.innerHTML = totalPoints;
+    // moveRowsDown(clearedRowsCount);
+    totalPoints += calculatePoints(clearedRowsCount);
+    score.innerHTML = totalPoints;
 }
 
 
@@ -59,4 +70,4 @@ function moveRowsDown(startRow) {
     }
 }
 
-export {clearFullRows, totalPoints}
+export { clearFullRows, totalPoints }

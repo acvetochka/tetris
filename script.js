@@ -1,14 +1,23 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./js/variables.js";
-import { playfield, tetromino, rowTetro, generatePlayField, generateTetromino } from "./js/generate.js"
+import { playfield, newTetromino, tetromino, rowTetro, generatePlayField, generateTetromino } from "./js/generate.js"
 import { onKeyDown, moveTetrominoDown } from "./js/move.js";
 import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
+import { totalPoints } from "./js/clearRows.js";
 
+// console.log(totalPoints)
 let gameInterval;
+// let tetromino;
+
 export const notification = document.querySelector(".notification");
 export const icon = document.querySelector(".notification use");
 
 generatePlayField();
 generateTetromino();
+// console.log(newTetromino);
+// tetromino = newTetromino;
+// const newTetromino = () => generateTetromino();
+// console.log(tetromino)
+// console.log(newTetromino());
 
 const cells = document.querySelectorAll('.grid div');
 const startBtn = document.querySelector(".buttonWrapper");
@@ -64,6 +73,8 @@ export function draw() {
     );
     drawPlayField();
     drawTetromino();
+    // generateTetromino();
+    // console.log(newTetromino);
 }
 
 
@@ -117,9 +128,10 @@ function onClickStart(e) {
     // }
 }
 
-// writeToLocalStorage();
+writeToLocalStorage();
 startBtn.addEventListener('click', onClickStart);
 
 document.addEventListener('keydown', onKeyDown);
 
+// export {tetromino};
 

@@ -4,6 +4,7 @@ import { randomColor } from "./helpers/randomColor.js";
 
 let playfield;
 let tetromino;
+let newTetromino;
 let rowTetro = 0;
 
 function generatePlayField() {
@@ -17,6 +18,7 @@ function generatePlayField() {
 }
 
 function generateTetromino() {
+
     const randomFigure = Math.floor(Math.random() * TETROMINO_NAMES.length);
 
     const name = TETROMINO_NAMES[randomFigure]
@@ -25,7 +27,6 @@ function generateTetromino() {
     const maxRow = maxInEachRow(matrix);
     const column = Math.floor((PLAYFIELD_COLUMNS - maxRow) / 2);
 
-
     tetromino = {
         name,
         matrix,
@@ -33,6 +34,16 @@ function generateTetromino() {
         column,
         color: randomColor()
     }
+
+    newTetromino = {
+        name,
+        matrix,
+        row: rowTetro,
+        column,
+        color: randomColor()
+    }
+
+//  return tetromino;
 }
 
-export {playfield, tetromino, rowTetro, generatePlayField, generateTetromino}
+export {playfield, tetromino, newTetromino, rowTetro, generatePlayField, generateTetromino}
