@@ -19,6 +19,7 @@ const buttonWrap = document.querySelector(".direction");
 init();
 
 export function init() {
+    document.removeEventListener('keydown', onKeyDown)
     notification.innerHTML = ""
     score.innerHTML = 0;
     generatePlayField();
@@ -28,6 +29,10 @@ export function init() {
     clearGameInterval();
     start();
     draw();
+    startBtn.addEventListener('click', onClickStart);
+    iconWrap.addEventListener('click', onIconClick);
+    document.addEventListener('keydown', onKeyDown);
+    buttonWrap.addEventListener("click", onClickBrowser);
 }
 
 
@@ -87,10 +92,6 @@ export function draw() {
 
 
 writeToLocalStorage();
-startBtn.addEventListener('click', onClickStart);
-iconWrap.addEventListener('click', onIconClick);
-document.addEventListener('keydown', onKeyDown);
-buttonWrap.addEventListener("click", onClickBrowser);
 
-export {tetromino};
+export { tetromino };
 

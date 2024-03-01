@@ -15,10 +15,6 @@ function onClickStart(e) {
     e.preventDefault();
 
     const btn = e.target;
-    console.log(btn.nodeName);
-    // if (btn.nodeName !== "svg") return;
-    console.log(btn.dataset.play);
-    isPaused = !isPaused;
     switch (btn.dataset.play) {
         case "start":
             start();
@@ -27,7 +23,6 @@ function onClickStart(e) {
             pause();
             break;
         case "restart":
-            // generatePlayField();
             init();
         default:
             break;
@@ -36,6 +31,7 @@ function onClickStart(e) {
 
 function start() {
     clearGameInterval();
+    isPaused = false;
     startInterval();
     startButton.forEach(elem => elem.setAttribute("data-play", "pause"))
     startIcon.setAttribute('href', "./assets/sprite.svg#icon-pause")
@@ -46,6 +42,7 @@ function start() {
 
 function pause() {
     clearGameInterval();
+    isPaused = true;
     startButton.forEach(elem => elem.setAttribute("data-play", "start"))
     startIcon.setAttribute('href', "./assets/sprite.svg#icon-play")
     icon.setAttribute('href', "./assets/sprite.svg#icon-play");
