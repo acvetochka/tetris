@@ -14,7 +14,7 @@ body {
 
 main {
     display: flex;
-    gap: 40px;
+    gap: 5vh;
     justify-content: center;
     align-items: center;
 }
@@ -51,9 +51,18 @@ main {
     box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0, 0, 0, 0.47);
 }
 
-.scoreWrapper, .recordWrapper {
+.direction,
+.table {
     display: flex;
-    font-size: 32px;
+    gap: 10vh;
+    border: 1px solid black;
+    padding: 1vh;
+    border-radius: 1vh;
+    margin-bottom: 3vh;
+}
+.scoreWrapper, .recordWrapper, .timeWrapper {
+    display: flex;
+    font-size: 3vh;
 }
 
 .notification {
@@ -62,46 +71,87 @@ main {
     top: 50%;
     left: 50%;
     background: rgb(39, 23, 83);
+    border-radius: 50%;
     transform: translate(-50%, -50%);
-    font-size: 32px;
+    font-size: 4vh;
     text-wrap: nowrap;
     /* width: 100%; */
     color: white;
     height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* .grid > .O {
-    background-color: rgb(48, 118, 66);
+.icon {
+    width: 5vh;
+    height: 5vh;
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
+    background-color: #524cf0;
 }
 
-.grid > .J {
-    background-color: rgb(155, 29, 29);
+.icon svg{
+fill:rgb(39, 23, 83)
 }
 
-.grid > .L {
-    background-color: rgb(234, 121, 9);
+.icon-play {
+    /* background-color: rgb(39, 23, 83); */
+    width: 10vh;
+    height: 10vh;    
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
 }
 
-.grid > .T {
-    background-color: rgb(226, 219, 14);
+
+.icon:hover,
+.icon:focus,
+.icon-play:hover,
+.icon-play:focus {
+    transform: scale(1.1);
 }
 
-.grid > .Z {
-    background-color: rgb(41, 149, 216);
+.direction button,
+.startButton,
+.restartButton {
+    border: none;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    outline: none;
 }
 
-.grid > .S {
-    background-color: rgb(211, 20, 109);
+.buttonWrapper {
+    margin-bottom: 3vh;
 }
 
-.grid > .I {
-    background-color: rgb(162, 30, 234);
+.direction {
+flex-direction: column;
+width: 28vh;
+height: 28vh;
+gap: 0;
+justify-content: space-between;
+align-items: center   ;
+
 }
 
-.grid > .C {
-    background-color: rgb(57, 223, 11);
-}
+/* .direction .icon {
+    width: 8vh;
+    height: 8vh;
 
-.grid > .Q {
-    background-color: rgb(0, 67, 255)
 } */
+
+.directButton, 
+.direction .icon {
+    width: 8vh;
+    height: 8vh;   
+    padding: 0;
+    border-radius: 50%;
+}
+
+.directionButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10vh;
+}
+

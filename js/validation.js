@@ -1,4 +1,5 @@
-import { playfield, tetromino } from "./generate.js";
+import { playfield, tetromino} from "./generate.js";
+// import { tetromino } from "../script.js";
 // import { tetromino } from "../script.js";
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./variables.js";
 

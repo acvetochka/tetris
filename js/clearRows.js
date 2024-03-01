@@ -3,6 +3,8 @@ import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./variables.js";
 
 let totalPoints = 0;
 const score = document.querySelector(".score");
+const bestResult = document.querySelector('.record');
+const storage = localStorage.getItem("record");
 // let clearedRowsCount;
 
 function calculatePoints(clearedRows) {
@@ -22,28 +24,20 @@ function calculatePoints(clearedRows) {
 
 function clearFullRows() {
     let clearedRowsCount = 0; // Лічильник видалених рядів
-    // console.log(PLAYFIELD_ROWS);
-    // for (let row = PLAYFIELD_ROWS - 1; row >= 0; row--) {
-    //     // console.log(row)
-    //     if (isRowFull(row)) {
-    //         clearedRowsCount++;
-    //         removeRow(row);
-    //         // console.log(row)
-    //         moveRowsDown(row);
-    //         console.log(clearedRowsCount)
-    //     }
-    // }
+
     for (let row = PLAYFIELD_ROWS - 1; row >= 0; row--) {
+        // for (let row = 0; row < PLAYFIELD_ROWS; row--) {
         if (isRowFull(row)) {
             setTimeout(()=> {
                 removeRow(row);
                 moveRowsDown(row);
-            }, 50)
+            }, 100)
             clearedRowsCount += 1;   
         }
     }
     // moveRowsDown(clearedRowsCount);
     totalPoints += calculatePoints(clearedRowsCount);
+    totalPoints>storage ? bestResult.innerHTML=totalPoints : bestResult.innerHTML=storage;
     score.innerHTML = totalPoints;
 }
 

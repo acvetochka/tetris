@@ -13,22 +13,73 @@
         <div class="tetrisWrapper">
             <div class="grid"></div>
             <div class="notification">
-                <svg class="icon icon-play2"><use href="./assets/sprite.svg#icon-play2"></use></svg>
+                <p></p>
+                <svg class="icon-play">
+                    <use href="./assets/sprite.svg#icon-play"></use>
+                </svg>
             </div>
         </div>
         <div>
-            <div class="scoreWrapper">
-                <p>Score: </p>
-                <span class="score"> 0</span>
+            <div class="table">
+                <div>
+                    <p class="scoreWrapper">Score: <span class="score"> 0</span></p>
+                    <p class="recordWrapper">Best result: <span class="record"> 0</span></p>
+                    <p class="timeWrapper">Time: <span class="time"></span></p>
+                </div>
+                <!-- <div>
+                  
+                    <p class="timeWrapper">Best Time: <span class="best-time"></span></p>
+                </div> -->
             </div>
-            <div class="recordWrapper">
-                <p>Record: </p>
-                <span class="record"> 0</span>
-            </div>
+            <!-- <div class="table"> -->
             <div class="buttonWrapper">
-                <button class="startButton">Start</button>
-                <!-- <button class="pauseButton">Pause</button> -->
+                <button class="startButton" data-play="start">
+                    <!-- <img src="./assets/play.svg" class="icon" data-click="start" /> -->
+                    <svg class="icon startButton" data-play="start">
+                        <use href="./assets/sprite.svg#icon-play" class="startButton" data-play="start"></use>
+                    </svg>
+                </button>
+                <button class="restartButton">
+                    <svg class="icon restartButton" data-play="restart">
+                        <use href="./assets/sprite.svg#icon-loop" data-play="restart"></use>
+                    </svg>
+                </button>
             </div>
+            <div class="direction">
+                <button class="directButton">
+                    <img src="./assets/rotate.svg" class="icon" data-click="rotate" />
+                </button>
+                <!-- <svg class="icon icon-play">
+                        <use href="./assets/sprite.svg#icon-circle-up"></use>
+                    </svg> -->
+
+                <div class="directionButtons">
+                    <button class="directButton">
+                        <img src="./assets/left.svg" class="icon" data-click="left" />
+                    </button>
+                    <!-- <svg class="icon icon-play">
+                            <use href="./assets/sprite.svg#icon-circle-left"></use>
+                        </svg> -->
+
+                    <button class="directButton">
+                        <img src="./assets/right.svg" class="icon" data-click="right" />
+                    </button>
+                    <!-- <svg class="icon icon-play">
+                            <use href="./assets/sprite.svg#icon-circle-right"></use>
+                        </svg> -->
+
+                </div>
+                <button class="directButton">
+                    <img src="./assets/down.svg" class="icon" data-click="down" />
+                </button>
+                <!-- <svg class="icon icon-play">
+                        <use href="./assets/sprite.svg#icon-circle-down"></use>
+                    </svg> -->
+
+            </div>
+
+        </div>
+
         </div>
     </main>
     <script src="./script.js" type="module"></script>

@@ -6,11 +6,13 @@ let playfield;
 let tetromino;
 let newTetromino;
 let rowTetro = 0;
+const grid = document.querySelector('.grid')
 
 function generatePlayField() {
+    grid.innerHTML = "";
     for (let i = 0; i < PLAYFIELD_ROWS * PLAYFIELD_COLUMNS; i++) {
         const div = document.createElement('div');
-        document.querySelector('.grid').append(div);
+        grid.append(div);
     }
 
     playfield = new Array(PLAYFIELD_ROWS).fill()
@@ -35,15 +37,17 @@ function generateTetromino() {
         color: randomColor()
     }
 
-    newTetromino = {
-        name,
-        matrix,
-        row: rowTetro,
-        column,
-        color: randomColor()
-    }
+    // const tetromino2 = {...tetromino1};
+    // console.log(tetromino2)
+    // newTetromino = {
+    //     name,
+    //     matrix,
+    //     row: rowTetro,
+    //     column,
+    //     color: randomColor()
+    // }
 
-//  return tetromino;
+ return tetromino;
 }
 
 export {playfield, tetromino, newTetromino, rowTetro, generatePlayField, generateTetromino}

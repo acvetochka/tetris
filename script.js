@@ -1,27 +1,35 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./js/variables.js";
 import { playfield, newTetromino, tetromino, rowTetro, generatePlayField, generateTetromino } from "./js/generate.js"
-import { onKeyDown, moveTetrominoDown } from "./js/move.js";
+import { onKeyDown, moveTetrominoDown, onClickBrowser } from "./js/move.js";
 import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
 import { totalPoints } from "./js/clearRows.js";
+import { clearGameInterval, onClickStart, onIconClick, start } from "./js/start.js";
 
 // console.log(totalPoints)
-let gameInterval;
+
 // let tetromino;
-
-export const notification = document.querySelector(".notification");
-export const icon = document.querySelector(".notification use");
-
-generatePlayField();
-generateTetromino();
-// console.log(newTetromino);
-// tetromino = newTetromino;
-// const newTetromino = () => generateTetromino();
-// console.log(tetromino)
-// console.log(newTetromino());
-
-const cells = document.querySelectorAll('.grid div');
+let cells;
 const startBtn = document.querySelector(".buttonWrapper");
 // const pauseBtn = document.querySelector(".pauseButton");
+const iconWrap = document.querySelector(".notification");
+const score = document.querySelector(".score");
+const notification = document.querySelector(".notification p");
+const buttonWrap = document.querySelector(".direction");
+
+init();
+
+export function init() {
+    notification.innerHTML = ""
+    score.innerHTML = 0;
+    generatePlayField();
+    generateTetromino();
+    console.log(tetromino);
+    cells = document.querySelectorAll('.grid div');
+    clearGameInterval();
+    start();
+    draw();
+}
+
 
 function convertPositionToIndex(row, column) {
     return row * PLAYFIELD_COLUMNS + column;
@@ -78,60 +86,11 @@ export function draw() {
 }
 
 
-function startInterval() {
-    gameInterval = setInterval(() => {
-        moveTetrominoDown();
-    }, 1000);
-
-    setInterval(() => {
-        draw();
-    }, 50);
-}
-
-export function clearGameInterval() {
-    clearInterval(gameInterval);
-}
-
-
-// draw();
-
-
-function onClickStart(e) {
-    e.preventDefault();
-
-    const btn = e.target;
-
-    if (btn.nodeName !== "BUTTON") return;
-    switch (btn.textContent) {
-        case "Start":
-            startInterval();
-            btn.textContent = "Pause"
-            // notification.innerHTML = "";
-            icon.removeAttribute('href');
-            notification.style.height=0;
-            break;
-        case "Pause":
-            clearGameInterval();
-            btn.textContent = "Start";
-            icon.setAttribute('href', "./assets/sprite.svg#icon-play2")
-            notification.style.height="auto";
-            // notification.innerHTML = "Pause";
-            break;
-            default:
-                break;
-    }
-    // if (btn.textContent === "Start") {
-
-    // }
-    // if (btn.textContent === "Pause") {
-
-    // }
-}
-
 writeToLocalStorage();
 startBtn.addEventListener('click', onClickStart);
-
+iconWrap.addEventListener('click', onIconClick);
 document.addEventListener('keydown', onKeyDown);
+buttonWrap.addEventListener("click", onClickBrowser);
 
-// export {tetromino};
+export {tetromino};
 

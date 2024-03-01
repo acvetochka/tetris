@@ -1,11 +1,16 @@
-import { draw, clearGameInterval, notification} from "../script.js";
-import { playfield, tetromino, generateTetromino } from "./generate.js";
+import { draw } from "../script.js";
+import { playfield, tetromino,  generateTetromino } from "./generate.js";
 import { clearFullRows, totalPoints } from "./clearRows.js";
 import { randomColor } from "./helpers/randomColor.js";
 import { isValid } from "./validation.js";
 import { writeToLocalStorage } from "./writeToLocalStorage.js";
+import { clearGameInterval, pause, start, toggleStartStop, isPaused } from "./start.js";
 
-const record = document.querySelector('.record')
+let paused = false;
+const record = document.querySelector('.record');
+const notification = document.querySelector(".notification p");
+const icon = document.querySelector(".notification use");
+
 function rotate() {
     rotateTetromino();
     draw();
@@ -50,19 +55,34 @@ function placeTetromino() {
 }
 
 function onKeyDown(e) {
-    switch (e.key) {
-        case "ArrowUp":
-            rotate();
-            break;
-        case "ArrowDown":
-            moveTetrominoDown();
-            break;
-        case "ArrowLeft":
-            moveTetrominoLeft()
-            break;
-        case "ArrowRight":
-            moveTetrominoRight();
-            break;
+    if (e.code === "Space") {
+        console.log(paused)
+        !paused ? pause() : start();
+        paused = toggleStartStop(paused);
+
+        // console.log(toggleStartStop(isPaused)); 
+        console.log(paused);
+
+        // isPaused = !isPaused;
+    }
+
+    console.log(e);
+
+    if (!isPaused) {
+        switch (e.key) {
+            case "ArrowUp":
+                rotate();
+                break;
+            case "ArrowDown":
+                moveTetrominoDown();
+                break;
+            case "ArrowLeft":
+                moveTetrominoLeft()
+                break;
+            case "ArrowRight":
+                moveTetrominoRight();
+                break;
+        }
     }
 
     draw();
@@ -80,16 +100,11 @@ function moveTetrominoDown() {
         if (!isValid()) {
             clearGameInterval();
             notification.innerHTML = "GAME OVER";
+            icon.setAttribute("href", "./assets/sprite.svg#icon-loop");
+
+            isPaused = true;
             writeToLocalStorage();
-            // if(localStorage.getItem('record')>totalPoints){
-            //     record.innerHTML = localStorage.getItem('record')
-            // } else {
-            //     localStorage.setItem("record", totalPoints);
-            //     record.innerHTML = totalPoints;
-            // }
-            
-            // notification.style.height = "auto";
-            // alert("GAME OVER");
+            return;
         }
     }
 }
@@ -108,4 +123,31 @@ function moveTetrominoRight() {
     }
 }
 
-export {moveTetrominoDown, onKeyDown, placeTetromino}
+function onClickBrowser(e) {
+    const btn = e.target;
+
+    if (!isPaused) {
+        switch (btn.dataset.click) {
+            case "rotate":
+                console.log(btn);
+                rotate();
+                break;
+            case "left":
+                moveTetrominoLeft();
+                break;
+            case "right":
+                moveTetrominoRight();
+                break;
+            case "down":
+                moveTetrominoDown();
+                break;
+        }
+    }
+    draw();
+}
+
+
+
+
+// export {};
+export { moveTetrominoDown, moveTetrominoLeft, moveTetrominoRight, onKeyDown, placeTetromino, rotate, onClickBrowser }
