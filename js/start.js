@@ -37,6 +37,7 @@ function start() {
     startIcon.setAttribute('href', "./assets/sprite.svg#icon-pause")
     icon.removeAttribute('href');
     notification.style.height = 0;
+    notification.style.padding= 0;
 
 }
 

@@ -1,5 +1,5 @@
 import { draw } from "../script.js";
-import { playfield, tetromino,  generateTetromino } from "./generate.js";
+import { playfield, tetromino,  generateTetromino, changeTetromino, newTetromino } from "./generate.js";
 import { clearFullRows, totalPoints } from "./clearRows.js";
 import { randomColor } from "./helpers/randomColor.js";
 import { isValid } from "./validation.js";
@@ -8,7 +8,8 @@ import { clearGameInterval, pause, start, toggleStartStop, isPaused } from "./st
 
 let paused = false;
 const record = document.querySelector('.record');
-const notification = document.querySelector(".notification p");
+const notification = document.querySelector('.notification');
+const gameOver = document.querySelector(".notification p");
 const icon = document.querySelector(".notification use");
 
 function rotate() {
@@ -49,24 +50,27 @@ function placeTetromino() {
             }
         }
     }
-    generateTetromino();
+    // generateTetromino();
+    changeTetromino();
+    console.log(tetromino);
+    console.log(newTetromino);
 
-    tetromino.color = randomColor();
+    // tetromino.color = randomColor();
 }
 
 function onKeyDown(e) {
     if (e.code === "Space") {
-        console.log(paused)
+        // console.log(paused)
         !paused ? pause() : start();
         paused = toggleStartStop(paused);
 
         // console.log(toggleStartStop(isPaused)); 
-        console.log(paused);
+        // console.log(paused);
 
         // isPaused = !isPaused;
     }
 
-    console.log(e);
+    // console.log(e);
 
     if (!isPaused) {
         switch (e.key) {
@@ -96,12 +100,14 @@ function moveTetrominoDown() {
         placeTetromino();
         clearFullRows();
         draw();
-        generateTetromino();
+        // generateTetromino();
         if (!isValid()) {
             clearGameInterval();
-            notification.innerHTML = "GAME OVER";
+            gameOver.innerHTML = "GAME OVER";
+            notification.style.height = "auto";
+            notification.style.padding = "2vh"
             icon.setAttribute("href", "./assets/sprite.svg#icon-loop");
-
+            // icon.setAttribute("src", "./assets/up.svg")
             isPaused = true;
             writeToLocalStorage();
             return;

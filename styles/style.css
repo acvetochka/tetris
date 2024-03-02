@@ -6,6 +6,8 @@
 body {
     height: 100vh;
     background: linear-gradient(38deg, rgb(140, 142, 202), #5d9cec94, #dda9cbd1);
+    /* background-image: url("../assets/fon.jpg"); */
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,10 +28,9 @@ main {
     border-radius: 3vw;
 }
 
-.grid {
+.grid, .next {
     background-color: rgb(39, 23, 83);
     display: grid;
-    grid-template-columns: repeat(10, auto);
     gap: 0.5vh;
     padding: 0.5vh;
     -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
@@ -38,7 +39,16 @@ main {
     border-radius: 0.3vh;
 }
 
-.grid>div {
+.grid {
+    grid-template-columns: repeat(10, auto);
+}
+
+.next {
+    grid-template-columns: repeat(6, 3vh);
+    width: 20vh;
+}
+
+.grid>div, .next>div {
     height: min(3vh, 5vw);
     width: min(3vh, 5vw);
     background-color: rgba(9, 9, 9, 0.2);
@@ -49,6 +59,11 @@ main {
 .figure {
     -webkit-box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0, 0, 0, 0.47);
     box-shadow: inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0, 0, 0, 0.47);
+}
+
+.logo {
+width: 40vh;
+/* transform: rotateX(90deg); */
 }
 
 .direction,
@@ -71,7 +86,7 @@ main {
     top: 50%;
     left: 50%;
     background: rgb(39, 23, 83);
-    border-radius: 50%;
+    border-radius: 1vh;
     transform: translate(-50%, -50%);
     font-size: 4vh;
     text-wrap: nowrap;
@@ -79,10 +94,12 @@ main {
     color: white;
     height: auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+/* .icon-play, */
 .icon {
     width: 5vh;
     height: 5vh;
@@ -97,8 +114,8 @@ fill:rgb(39, 23, 83)
 
 .icon-play {
     /* background-color: rgb(39, 23, 83); */
-    width: 10vh;
-    height: 10vh;    
+    width: 5vh;
+    height: 5vh;    
     transform: scale(1);
     transition: transform 0.2s ease-in-out;
 }

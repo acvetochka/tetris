@@ -1,5 +1,5 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./js/variables.js";
-import { playfield, newTetromino, tetromino, rowTetro, generatePlayField, generateTetromino } from "./js/generate.js"
+import { playfield, newTetromino, tetromino, rowTetro, generatePlayField, generateTetromino, generateNextField, generateNewTetromino } from "./js/generate.js"
 import { onKeyDown, moveTetrominoDown, onClickBrowser } from "./js/move.js";
 import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
 import { totalPoints } from "./js/clearRows.js";
@@ -9,6 +9,7 @@ import { clearGameInterval, onClickStart, onIconClick, start } from "./js/start.
 
 // let tetromino;
 let cells;
+let newCells;
 const startBtn = document.querySelector(".buttonWrapper");
 // const pauseBtn = document.querySelector(".pauseButton");
 const iconWrap = document.querySelector(".notification");
@@ -18,17 +19,24 @@ const buttonWrap = document.querySelector(".direction");
 
 init();
 
+
+
 export function init() {
     document.removeEventListener('keydown', onKeyDown)
     notification.innerHTML = ""
     score.innerHTML = 0;
     generatePlayField();
     generateTetromino();
-    console.log(tetromino);
+    generateNextField();
+    generateNewTetromino();
+    // console.log(tetromino);
+    console.table(newTetromino.matrix);
     cells = document.querySelectorAll('.grid div');
+    newCells = document.querySelectorAll(".next div");
     clearGameInterval();
     start();
     draw();
+    drawNext();
     startBtn.addEventListener('click', onClickStart);
     iconWrap.addEventListener('click', onIconClick);
     document.addEventListener('keydown', onKeyDown);
@@ -76,6 +84,33 @@ function drawTetromino() {
     }
 }
 
+export function drawNext() {
+    const tetrominoMatrixSize = newTetromino.matrix.length;
+    newCells.forEach(cell => {
+        if (cell) {
+            cell.removeAttribute("class");
+            cell.removeAttribute("style")
+        }
+    })
+
+    for (let row = 0; row < tetrominoMatrixSize; row++) {
+        for (let column = 0; column < tetrominoMatrixSize; column++) {
+            if (!newTetromino.matrix[row][column]) continue;
+            const cellIndex = (newTetromino.row + row) * 6 + newTetromino.column + column
+            
+            // convertPositionToIndex(
+            //     newTetromino.row + row,
+            //     newTetromino.column + column
+            // );
+            if (newCells[cellIndex]) {
+                newCells[cellIndex].classList.add("figure");
+                newCells[cellIndex].style.backgroundColor = newTetromino.color;
+            }
+
+        }
+    }
+}
+
 export function draw() {
     cells.forEach(cell => {
         if (cell) {
@@ -86,6 +121,7 @@ export function draw() {
     );
     drawPlayField();
     drawTetromino();
+    // drawNext();
     // generateTetromino();
     // console.log(newTetromino);
 }
