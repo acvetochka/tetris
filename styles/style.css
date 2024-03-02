@@ -29,23 +29,25 @@ main {
 }
 
 .grid, .next {
-    background-color: rgb(39, 23, 83);
+    
     display: grid;
     gap: 0.5vh;
     padding: 0.5vh;
+}
+
+.grid {
+    grid-template-columns: repeat(10, auto);
+    background-color: rgb(39, 23, 83);
     -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
     box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
     border-radius: 0.3vh;
 }
 
-.grid {
-    grid-template-columns: repeat(10, auto);
-}
-
 .next {
-    grid-template-columns: repeat(6, 3vh);
+    grid-template-columns: repeat(5, 3vh);
     width: 20vh;
+    
 }
 
 .grid>div, .next>div {
@@ -53,7 +55,11 @@ main {
     width: min(3vh, 5vw);
     background-color: rgba(9, 9, 9, 0.2);
     border-radius: 0.3vh;
+}
 
+.next>div {
+    background: none;
+    border: none;
 }
 
 .figure {
@@ -74,6 +80,10 @@ width: 40vh;
     padding: 1vh;
     border-radius: 1vh;
     margin-bottom: 3vh;
+}
+
+.table {
+    flex-direction: column;
 }
 .scoreWrapper, .recordWrapper, .timeWrapper {
     display: flex;
@@ -109,7 +119,7 @@ width: 40vh;
 }
 
 .icon svg{
-fill:rgb(39, 23, 83)
+fill:#271753;
 }
 
 .icon-play {
@@ -130,9 +140,10 @@ fill:rgb(39, 23, 83)
 
 .direction button,
 .startButton,
-.restartButton {
+.restartButton,
+.volumeButton {
     border: none;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     background: none;
     cursor: pointer;
     outline: none;

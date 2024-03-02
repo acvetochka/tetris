@@ -1,16 +1,20 @@
-import { draw } from "../script.js";
-import { playfield, tetromino,  generateTetromino, changeTetromino, newTetromino } from "./generate.js";
+import { draw, startNewGame } from "../script.js";
+import { playfield, tetromino, generateTetromino, changeTetromino, newTetromino } from "./generate.js";
 import { clearFullRows, totalPoints } from "./clearRows.js";
 import { randomColor } from "./helpers/randomColor.js";
 import { isValid } from "./validation.js";
 import { writeToLocalStorage } from "./writeToLocalStorage.js";
-import { clearGameInterval, pause, start, toggleStartStop, isPaused } from "./start.js";
+import { clearGameInterval, pause, start, toggleStartStop, isPaused, startInterval } from "./start.js";
+import { changeLevel, level } from "./level.js";
 
 let paused = false;
 const record = document.querySelector('.record');
 const notification = document.querySelector('.notification');
 const gameOver = document.querySelector(".notification p");
 const icon = document.querySelector(".notification use");
+const levelCount = document.querySelector('.level');
+const audio = document.querySelector('#audio');
+const startGameBtn = document.querySelector(".notification #new-game");
 
 function rotate() {
     rotateTetromino();
@@ -50,27 +54,25 @@ function placeTetromino() {
             }
         }
     }
-    // generateTetromino();
     changeTetromino();
-    console.log(tetromino);
-    console.log(newTetromino);
-
-    // tetromino.color = randomColor();
 }
 
 function onKeyDown(e) {
+    // console.log(e);
+    e.preventDefault();
     if (e.code === "Space") {
-        // console.log(paused)
+        if(startGameBtn.hasAttribute('id')){
+            console.log("space");
+            startNewGame();
+        } else {
         !paused ? pause() : start();
         paused = toggleStartStop(paused);
-
-        // console.log(toggleStartStop(isPaused)); 
-        // console.log(paused);
-
-        // isPaused = !isPaused;
+        }
     }
 
-    // console.log(e);
+    if (e.key === "Escape") {
+            init();
+        }
 
     if (!isPaused) {
         switch (e.key) {
@@ -100,16 +102,11 @@ function moveTetrominoDown() {
         placeTetromino();
         clearFullRows();
         draw();
+        changeLevel();
+        levelCount.innerHTML = level;
         // generateTetromino();
         if (!isValid()) {
-            clearGameInterval();
-            gameOver.innerHTML = "GAME OVER";
-            notification.style.height = "auto";
-            notification.style.padding = "2vh"
-            icon.setAttribute("href", "./assets/sprite.svg#icon-loop");
-            // icon.setAttribute("src", "./assets/up.svg")
-            isPaused = true;
-            writeToLocalStorage();
+            gameOverFunc();
             return;
         }
     }
@@ -135,7 +132,6 @@ function onClickBrowser(e) {
     if (!isPaused) {
         switch (btn.dataset.click) {
             case "rotate":
-                console.log(btn);
                 rotate();
                 break;
             case "left":
@@ -152,8 +148,17 @@ function onClickBrowser(e) {
     draw();
 }
 
+function gameOverFunc() {
+    clearGameInterval();
+    gameOver.innerHTML = "GAME OVER";
+    notification.style.height = "auto";
+    notification.style.padding = "2vh"
+    icon.setAttribute("href", "./assets/sprite.svg#icon-loop");
+    // icon.setAttribute("src", "./assets/up.svg")
+    audio.setAttribute("src", "./assets/music/konec.mp3");
+    audio.play();
+    isPaused = true;
+    writeToLocalStorage();
+}
 
-
-
-// export {};
 export { moveTetrominoDown, moveTetrominoLeft, moveTetrominoRight, onKeyDown, placeTetromino, rotate, onClickBrowser }

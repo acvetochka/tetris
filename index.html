@@ -10,30 +10,25 @@
 
 <body>
     <main>
-        <img src="./assets/logo.png" class="logo" alt="logo-tetris"/>
+        <div>
+            <img src="./assets/logo.png" class="logo" alt="logo-tetris" />
+            <div class="table">
+                <p class="scoreWrapper">Score: <span class="score"> 0</span></p>
+                <p class="recordWrapper">Best result: <span class="record"> 0</span></p>
+                <p class="levelWrapper">Level: <span class="level"> 1</span></p>
+                <p class="timeWrapper">Time: <span class="time"></span></p>
+            </div>
+        </div>
         <div class="tetrisWrapper">
             <div class="grid"></div>
             <div class="notification">
-                <p></p>
+                <p id="new-game">START</p>
                 <svg class="icon-play">
-                    <use href="./assets/sprite.svg#icon-play"></use>
+                    <use href=""></use>
                 </svg>
             </div>
         </div>
         <div>
-            
-            <div class="table">
-                <div>
-                    <p class="scoreWrapper">Score: <span class="score"> 0</span></p>
-                    <p class="recordWrapper">Best result: <span class="record"> 0</span></p>
-                    <p class="timeWrapper">Time: <span class="time"></span></p>
-                </div>
-                <!-- <div>
-                  
-                    <p class="timeWrapper">Best Time: <span class="best-time"></span></p>
-                </div> -->
-            </div>
-            <!-- <div class="table"> -->
             <div class="buttonWrapper">
                 <button class="startButton" data-play="start">
                     <!-- <img src="./assets/play.svg" class="icon" data-click="start" /> -->
@@ -41,18 +36,23 @@
                         <use href="./assets/sprite.svg#icon-play" class="startButton" data-play="start"></use>
                     </svg>
                 </button>
-                <button class="restartButton">
+                <button class="restartButton" data-play="restart">
                     <svg class="icon restartButton" data-play="restart">
-                        <use href="./assets/sprite.svg#icon-loop" data-play="restart"></use>
+                        <use href="./assets/sprite.svg#icon-loop" data-play="restart" title="restart"></use>
+                    </svg>
+                </button>
+                <button class="volumeButton" data-play="volume">
+                    <svg class="icon volumeButton" data-play="volume">
+                        <use href="./assets/sprite.svg#icon-volume-high" data-play="volume" ></use>
                     </svg>
                 </button>
             </div>
-            <div>
-            <div class="next"></div>
-        </div>
+            <!-- <div> -->
+                <div class="next"></div>
+            <!-- </div> -->
             <div class="direction">
                 <button class="directButton">
-                    <img src="./assets/rotate.svg" class="icon" data-click="rotate" />
+                    <img src="./assets/rotate.svg" class="icon" data-click="rotate" title="rotate" />
                 </button>
                 <!-- <svg class="icon icon-play">
                         <use href="./assets/sprite.svg#icon-circle-up"></use>
@@ -60,14 +60,14 @@
 
                 <div class="directionButtons">
                     <button class="directButton">
-                        <img src="./assets/left.svg" class="icon" data-click="left" />
+                        <img src="./assets/left.svg" class="icon" data-click="left" title="left"/>
                     </button>
                     <!-- <svg class="icon icon-play">
                             <use href="./assets/sprite.svg#icon-circle-left"></use>
                         </svg> -->
 
                     <button class="directButton">
-                        <img src="./assets/right.svg" class="icon" data-click="right" />
+                        <img src="./assets/right.svg" class="icon" data-click="right" title="right"/>
                     </button>
                     <!-- <svg class="icon icon-play">
                             <use href="./assets/sprite.svg#icon-circle-right"></use>
@@ -75,7 +75,7 @@
 
                 </div>
                 <button class="directButton">
-                    <img src="./assets/down.svg" class="icon" data-click="down" />
+                    <img src="./assets/down.svg" class="icon" data-click="down" title="down"/>
                 </button>
                 <!-- <svg class="icon icon-play">
                         <use href="./assets/sprite.svg#icon-circle-down"></use>
@@ -86,6 +86,9 @@
         </div>
 
         </div>
+        <!-- <embed id="audio" src="./assets/music/tetris.mp3" width="70" height="45" align="left" hidden="True" autostart="False" loop="True"> -->
+        <audio src="./assets/music/tetris.mp3" preload="auto" id="audio"></audio>
+        <audio src="./assets/music/clear.mp3" preload="auto" id="clear-audio"></audio>
     </main>
     <script src="./script.js" type="module"></script>
 </body>

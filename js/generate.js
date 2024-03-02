@@ -1,4 +1,4 @@
-import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES } from "./variables.js";
+import { NEW_FIELD_COLUMNS, NEW_FIELD_ROWS, PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES } from "./variables.js";
 import { maxInEachRow } from "./helpers/maxInEachRow.js";
 import { randomColor } from "./helpers/randomColor.js";
 import { drawNext } from "../script.js";
@@ -22,15 +22,10 @@ function generatePlayField() {
         .map(() => new Array(PLAYFIELD_COLUMNS).fill(0))
 }
 
+
 function generateTetromino() {
-
-    const randomFigure = generateRandomIndex();
-
-    const name = TETROMINO_NAMES[randomFigure]
-    const matrix = TETROMINOES[name];
-
-    const maxRow = maxInEachRow(matrix);
-    const column = Math.floor((PLAYFIELD_COLUMNS - maxRow) / 2);
+    const {name, matrix} = generateMatrix();
+    const column = getColumn(matrix, PLAYFIELD_COLUMNS)
 
     tetromino = {
         name,
@@ -39,31 +34,26 @@ function generateTetromino() {
         column,
         color: randomColor()
     }
- return tetromino;
+    return tetromino;
 }
 
 function generateNextField() {
     nextField.innerHTML = "";
-    for (let i = 0; i < 6 * 5; i++) {
+    for (let i = 0; i < NEW_FIELD_ROWS * NEW_FIELD_COLUMNS; i++) {
         const div = document.createElement('div');
         nextField.append(div);
     }
 
-    newField = new Array(6).fill()
-        .map(() => new Array(5).fill(0))
+    newField = new Array(NEW_FIELD_ROWS).fill()
+        .map(() => new Array(NEW_FIELD_COLUMNS).fill(0))
 }
 
 function generateNewTetromino() {
-    const randomFigure = generateRandomIndex();
-    const name = TETROMINO_NAMES[randomFigure]
-    const matrix = TETROMINOES[name];
-
-    const maxRow = maxInEachRow(matrix);
-    const column = Math.floor((6 - matrix.length) / 2);
-    // const colum = Math.floor(())
+    const {name, matrix} = generateMatrix();
+    const column = getColumn(matrix, NEW_FIELD_COLUMNS)
 
     newTetromino = {
-        name, 
+        name,
         matrix,
         column,
         row: 1,
@@ -75,20 +65,37 @@ function generateRandomIndex() {
     return Math.floor(Math.random() * TETROMINO_NAMES.length);
 }
 
+function getColumn(matrix, filedColumns) {
+    const maxRow = maxInEachRow(matrix);
+    const column = Math.floor((filedColumns - maxRow) / 2);
+    return column;
+}
+
+function generateMatrix() {
+    const randomFigure = generateRandomIndex();
+    const name = TETROMINO_NAMES[randomFigure]
+    const matrix = TETROMINOES[name];
+
+    return { name, matrix }
+
+}
+
 function changeTetromino() {
     tetromino = newTetromino;
+    tetromino.column = getColumn(tetromino.matrix, PLAYFIELD_COLUMNS );
+    tetromino.row = rowTetro;
     generateNewTetromino();
     drawNext();
 }
 
 export {
-    playfield, 
-    tetromino, 
-    newTetromino, 
-    rowTetro, 
-    generatePlayField, 
-    generateTetromino, 
-    generateNewTetromino, 
+    playfield,
+    tetromino,
+    newTetromino,
+    rowTetro,
+    generatePlayField,
+    generateTetromino,
+    generateNewTetromino,
     generateNextField,
     changeTetromino
 }

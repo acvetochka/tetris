@@ -4,6 +4,8 @@ export const TETROMINO_NAMES = ['O',"J",
 //  "L", "T", "Z", "S", "I", "C", 
 "Q"
 ];
+export const NEW_FIELD_COLUMNS = 5;
+export const NEW_FIELD_ROWS = 5;
 
 export const TETROMINOES = {
     "O": [
