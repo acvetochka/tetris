@@ -3,7 +3,7 @@ import { playfield, newTetromino, tetromino, rowTetro, generatePlayField, genera
 import { onKeyDown, moveTetrominoDown, onClickBrowser, toggleGameOver } from "./js/move.js";
 import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
 import { totalPoints } from "./js/clearRows.js";
-import { clearGameInterval, onClickStart, onIconClick, start } from "./js/start.js";
+import { clearGameInterval, isPaused, onClickStart, onIconClick, start } from "./js/start.js";
 import { toggleVolume, volumeOff } from "./js/volume.js";
 import { clearTime, getTime } from "./js/time.js";
 
@@ -30,7 +30,6 @@ function generate() {
     generateNewTetromino();
     cells = document.querySelectorAll('.grid div');
     newCells = document.querySelectorAll(".next div");
-    document.addEventListener('keydown', onKeyDown);
 }
 
 generate();
@@ -39,6 +38,8 @@ export function init() {
     clearAll();
     toggleGameOver();
     generate();
+    document.addEventListener('keydown', onKeyDown);
+    buttonWrap.addEventListener("click", onClickBrowser);
     audio.setAttribute("src", './assets/music/tetris.mp3');
     audio.loop = true;
 
@@ -58,7 +59,6 @@ function clearAll() {
     time.textContent = "00:00:00";
 }
 
-buttonWrap.addEventListener("click", onClickBrowser);
 iconWrap.addEventListener('click', onIconClick);
 startBtn.addEventListener('click', onClickStart);
 
@@ -147,10 +147,10 @@ function startNewGame() {
     toggleGameOver();
     startGame.removeAttribute("id");
     startGame.textContent = "";
-
 }
 
 startGameIcon.addEventListener("click", startNewGame);
+
 writeToLocalStorage();
 
 export { tetromino, startNewGame };

@@ -18,6 +18,10 @@ body {
     margin: 0 auto;
 }
 
+button {
+    user-select: none;
+}
+
 main {
     display: flex;
     gap: 5vh;
