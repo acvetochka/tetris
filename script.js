@@ -37,6 +37,7 @@ generate();
 
 export function init() {
     clearAll();
+    toggleGameOver();
     generate();
     audio.setAttribute("src", './assets/music/tetris.mp3');
     audio.loop = true;
@@ -53,6 +54,7 @@ function clearAll() {
     score.innerHTML = 0;
     clearGameInterval();
     clearTime();
+
     time.textContent = "00:00:00";
 }
 

@@ -4,7 +4,6 @@ export const record = document.querySelector('.record');
 
 export function writeToLocalStorage() {
     const recordStorage = localStorage.getItem("record");
-    console.log(totalPoints);
     if(!recordStorage || recordStorage < totalPoints) {
         localStorage.setItem("record", totalPoints)
         record.innerHTML = totalPoints;

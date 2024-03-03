@@ -63,11 +63,9 @@ function placeTetromino() {
 }
 
 function onKeyDown(e) {
-    // console.log(e);
     e.preventDefault();
     if (e.code === "Space") {
         if (startGameBtn.hasAttribute('id')) {
-            console.log("space");
             startNewGame();
         } else {
             !paused ? pause() : start();

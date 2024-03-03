@@ -20,7 +20,6 @@ function onClickStart(e) {
     e.preventDefault();
 
     const btn = e.target;
-    console.log(e.target);
     switch (btn.dataset.play) {
         case "start":
             if(startGameBtn.hasAttribute('id') || isGameOver){
@@ -65,12 +64,10 @@ function pause() {
     isPaused = true;
     audio.pause();
     changePauseToStart()
-    // startButton.forEach(elem => elem.setAttribute("data-play", "start"))
-    // startIcon.setAttribute('src', "./assets/play.svg");
+
     icon.setAttribute('src', "./assets/play.svg" );
-    // icon.setAttribute('href', "./assets/sprite.svg#icon-play");
     icon.style.cursor = "pointer";
-    // notification.style = style;
+
     notification.style.display= "flex";
     notification.style.padding= 0;
     notification.style.backgroundColor = "transparent";
