@@ -18,8 +18,11 @@ body {
     margin: 0 auto;
 }
 
-button {
+/* button {
     user-select: none;
+} */
+p {
+    text-shadow: 0 0 1.5vh #524cf0;
 }
 
 main {
@@ -198,7 +201,13 @@ main {
 .direction button:hover,
 .startButton:hover,
 .restartButton:hover,
-.volumeButton:hover {
+.volumeButton:hover,
+.direction button:focus,
+.startButton:focus,
+.restartButton:focus,
+.volumeButton:focus,
+.icon-play:hover,
+.icon-play:focus {
     box-shadow: 0 0 5vh 0.1vh #524cf0;
 }
 

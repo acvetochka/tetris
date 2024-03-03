@@ -74,9 +74,7 @@ function onKeyDown(e) {
             !paused ? pause() : start();
             paused = toggleStartStop(paused);
         }
-
     }
-
 
     if (e.key === "Escape") {
         init();
