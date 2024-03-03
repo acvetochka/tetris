@@ -80,7 +80,8 @@ function changePauseToStart() {
 }
 
 function onIconClick(e) {
-    e.preventDefault()
+    e.preventDefault();
+    if(e.nodeName !== "BUTTON" || e.nodeName !== "IMG") return;
     isPaused = !isPaused;
     start()
 }
