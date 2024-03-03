@@ -5,91 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tetris Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Silkscreen:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css" />
 </head>
 
 <body>
     <main>
-        <div>
+        <div class="sidebar">
             <img src="./assets/logo.png" class="logo" alt="logo-tetris" />
             <div class="table">
                 <p class="scoreWrapper">Score: <span class="score"> 0</span></p>
                 <p class="recordWrapper">Best result: <span class="record"> 0</span></p>
+            </div>
+            <div class="table">
                 <p class="levelWrapper">Level: <span class="level"> 1</span></p>
-                <p class="timeWrapper">Time: <span class="time"></span></p>
+                <p class="timeWrapper">Time: <span class="time">00:00:00</span></p>
             </div>
         </div>
         <div class="tetrisWrapper">
             <div class="grid"></div>
             <div class="notification">
                 <p id="new-game">START</p>
-                <svg class="icon-play">
-                    <use href=""></use>
-                </svg>
+                <img src="./assets/play.svg" class="icon icon-play" data-play="start" />
             </div>
         </div>
-        <div>
+        <div class="navigate">
+            <p>Settings</p>
             <div class="buttonWrapper">
                 <button class="startButton" data-play="start">
-                    <!-- <img src="./assets/play.svg" class="icon" data-click="start" /> -->
-                    <svg class="icon startButton" data-play="start">
-                        <use href="./assets/sprite.svg#icon-play" class="startButton" data-play="start"></use>
-                    </svg>
+                    <img src="./assets/play.svg" class="startButton icon" data-play="start" />
                 </button>
                 <button class="restartButton" data-play="restart">
-                    <svg class="icon restartButton" data-play="restart">
-                        <use href="./assets/sprite.svg#icon-loop" data-play="restart" title="restart"></use>
-                    </svg>
+                    <img src="./assets/restart.svg" class="restartButton icon" data-play="restart" />
                 </button>
                 <button class="volumeButton" data-play="volume">
-                    <svg class="icon volumeButton" data-play="volume">
-                        <use href="./assets/sprite.svg#icon-volume-high" data-play="volume" ></use>
-                    </svg>
+                    <img src="./assets/volume-high.svg" class="volumeButton icon" data-play="volume" />
                 </button>
             </div>
-            <!-- <div> -->
-                <div class="next"></div>
-            <!-- </div> -->
+            <p>Next tetromino</p>
+            <div class="next"></div>
+            <p>Navigation</p>
             <div class="direction">
                 <button class="directButton">
                     <img src="./assets/rotate.svg" class="icon" data-click="rotate" title="rotate" />
                 </button>
-                <!-- <svg class="icon icon-play">
-                        <use href="./assets/sprite.svg#icon-circle-up"></use>
-                    </svg> -->
-
                 <div class="directionButtons">
                     <button class="directButton">
-                        <img src="./assets/left.svg" class="icon" data-click="left" title="left"/>
+                        <img src="./assets/left.svg" class="icon" data-click="left" title="left" />
                     </button>
-                    <!-- <svg class="icon icon-play">
-                            <use href="./assets/sprite.svg#icon-circle-left"></use>
-                        </svg> -->
-
                     <button class="directButton">
-                        <img src="./assets/right.svg" class="icon" data-click="right" title="right"/>
+                        <img src="./assets/right.svg" class="icon" data-click="right" title="right" />
                     </button>
-                    <!-- <svg class="icon icon-play">
-                            <use href="./assets/sprite.svg#icon-circle-right"></use>
-                        </svg> -->
-
                 </div>
                 <button class="directButton">
-                    <img src="./assets/down.svg" class="icon" data-click="down" title="down"/>
+                    <img src="./assets/down.svg" class="icon" data-click="down" title="down" />
                 </button>
-                <!-- <svg class="icon icon-play">
-                        <use href="./assets/sprite.svg#icon-circle-down"></use>
-                    </svg> -->
-
             </div>
 
         </div>
 
         </div>
-        <!-- <embed id="audio" src="./assets/music/tetris.mp3" width="70" height="45" align="left" hidden="True" autostart="False" loop="True"> -->
-        <audio src="./assets/music/tetris.mp3" preload="auto" id="audio"></audio>
+        <audio src="./assets/music/tetris.mp3" preload="auto" id="audio" loop></audio>
         <audio src="./assets/music/clear.mp3" preload="auto" id="clear-audio"></audio>
     </main>
+    <footer><span>Copyright &copy; 2023 | </span>
+        <a
+          href="https://github.com/acvetochka"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Alona Kuznietsova
+    </a></footer>
     <script src="./script.js" type="module"></script>
 </body>
 

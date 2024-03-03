@@ -1,13 +1,10 @@
 import { playfield, tetromino} from "./generate.js";
-// import { tetromino } from "../script.js";
-// import { tetromino } from "../script.js";
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./variables.js";
 
 export function isValid() {
     const matrixSize = tetromino.matrix.length;
     for (let row = 0; row < matrixSize; row++) {
         for (let column = 0; column < matrixSize; column++) {
-            // if (tetromino.matrix[row][column]) continue;
             if (isOutsideOfGameboard(row, column)) {
                 return false;
             }

@@ -1,26 +1,24 @@
 import { NEW_FIELD_COLUMNS, PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./js/variables.js";
 import { playfield, newTetromino, tetromino, rowTetro, generatePlayField, generateTetromino, generateNextField, generateNewTetromino } from "./js/generate.js"
-import { onKeyDown, moveTetrominoDown, onClickBrowser } from "./js/move.js";
+import { onKeyDown, moveTetrominoDown, onClickBrowser, toggleGameOver } from "./js/move.js";
 import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
 import { totalPoints } from "./js/clearRows.js";
 import { clearGameInterval, onClickStart, onIconClick, start } from "./js/start.js";
 import { toggleVolume, volumeOff } from "./js/volume.js";
+import { clearTime, getTime } from "./js/time.js";
 
-// console.log(totalPoints)
-
-// let tetromino;
-// let cells = document.querySelectorAll('.grid div');
 let cells;
 let newCells;
 const startBtn = document.querySelector(".buttonWrapper");
-// const pauseBtn = document.querySelector(".pauseButton");
 const iconWrap = document.querySelector(".notification");
 const score = document.querySelector(".score");
 const notification = document.querySelector(".notification p");
 const buttonWrap = document.querySelector(".direction");
 const audio = document.querySelector("#audio");
 const startGame = document.querySelector(".notification #new-game");
-// const volumeButton = document.querySelector(".volume")
+const startGameIcon = document.querySelector(".notification .icon-play")
+const time = document.querySelector(".time");
+
 
 
 // init();
@@ -38,16 +36,24 @@ function generate() {
 generate();
 
 export function init() {
-    document.removeEventListener('keydown', onKeyDown)
-    notification.innerHTML = ""
-    score.innerHTML = 0;
+    clearAll();
     generate();
     audio.setAttribute("src", './assets/music/tetris.mp3');
-    clearGameInterval();
+    audio.loop = true;
+
     start();
     draw();
     drawNext();
-    // document.querySelector("click", toggleVolume)
+    getTime();
+}
+
+function clearAll() {
+    document.removeEventListener('keydown', onKeyDown);
+    notification.innerHTML = "";
+    score.innerHTML = 0;
+    clearGameInterval();
+    clearTime();
+    time.textContent = "00:00:00";
 }
 
 buttonWrap.addEventListener("click", onClickBrowser);
@@ -62,20 +68,19 @@ function drawPlayField() {
     for (let row = 0; row < PLAYFIELD_ROWS; row++) {
         for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
             if (!playfield[row][column]) continue;
-            // const name = playfield[row][column];
             const cellIndex = convertPositionToIndex(row, column);
             const cellData = playfield[row][column];
 
             if (!cells[cellIndex].classList.contains("figure")) {
                 cells[cellIndex].classList.add("figure");
                 cells[cellIndex].style.backgroundColor = cellData.color;
+                cells[cellIndex].style.boxShadow = `inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0, 0, 0, 0.47)`;
             }
         }
     }
 }
 
 function drawTetromino() {
-    // const name = tetromino.name;
     const tetrominoMatrixSize = tetromino.matrix.length;
 
     for (let row = 0; row < tetrominoMatrixSize; row++) {
@@ -88,6 +93,7 @@ function drawTetromino() {
             if (cells[cellIndex]) {
                 cells[cellIndex].classList.add("figure");
                 cells[cellIndex].style.backgroundColor = tetromino.color;
+                cells[cellIndex].style.boxShadow = `inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0, 0, 0, 0.47), 0 0 20vh 0.2vh ${tetromino.color}`;
             }
 
         }
@@ -115,6 +121,7 @@ export function drawNext() {
             if (newCells[cellIndex]) {
                 newCells[cellIndex].classList.add("figure");
                 newCells[cellIndex].style.backgroundColor = newTetromino.color;
+                cells[cellIndex].style.boxShadow = `inset 0.2vh 0.1vh 0.6vh 0.5vh rgba(0, 0, 0, 0.47), 0 0 20vh 0.2vh ${newTetromino.color}`
             }
 
         }
@@ -135,11 +142,13 @@ export function draw() {
 
 function startNewGame() {
     init();
+    toggleGameOver();
     startGame.removeAttribute("id");
-    startGame.textContent="";
+    startGame.textContent = "";
+
 }
 
-startGame.addEventListener("click", startNewGame);
+startGameIcon.addEventListener("click", startNewGame);
 writeToLocalStorage();
 
 export { tetromino, startNewGame };

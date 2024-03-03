@@ -1,5 +1,6 @@
-import { playfield } from "./generate.js";
+import { generateTetromino, playfield } from "./generate.js";
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./variables.js";
+import { volumeOff } from "./volume.js";
 import { writeToLocalStorage } from "./writeToLocalStorage.js";
 
 let totalPoints = 0;
@@ -11,64 +12,63 @@ const clearAudio = document.querySelector("#clear-audio");
 function calculatePoints(clearedRows) {
     switch (clearedRows) {
         case 1:
-            return 20;
+            totalPoints+= 20;
+            break;
         case 2:
-            return 50;
+            totalPoints+= 50;
+            break;
         case 3:
-            return 100;
+            totalPoints+= 100;
+            break;
         case 4:
-            return 300;
+            totalPoints+= 300;
+            break;
         default:
-            return 0;
+            break;
     }
+    totalPoints > storage ? bestResult.innerHTML = totalPoints : bestResult.innerHTML = storage;
+    score.innerHTML = totalPoints;
 }
 
 function clearFullRows() {
-    let clearedRowsCount = 0; // Лічильник видалених рядів
-    let rowsFull = [];
-    for (let row = PLAYFIELD_ROWS - 1; row > 0; row--) {
-        if (isRowFull(row)) {
-            rowsFull.push(row);
+    const rowsFull = isRowFull();
+    if (rowsFull.length>0) {
+        removeRows(rowsFull);
+        if(!volumeOff){
+            clearAudio.play();
         }
     }
-    removeRows(rowsFull);
-    moveRowsDown(rowsFull.length);
-    clearAudio.play();
-    clearedRowsCount += rowsFull.length;
-    totalPoints += calculatePoints(clearedRowsCount);
-    totalPoints > storage ? bestResult.innerHTML = totalPoints : bestResult.innerHTML = storage;
-    score.innerHTML = totalPoints;
+    calculatePoints(rowsFull.length);
     writeToLocalStorage();
 }
 
 
-function isRowFull(row) {
-    const rowFull = [];
-
-    for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
-        if (!playfield[row][column]) {
-            return false;
+function isRowFull() {
+    let rowsFull = [];
+    for (let row = 0; row < PLAYFIELD_ROWS; row++) {
+        let clearedRowsCount = 0; // Лічильник видалених рядів
+        for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
+            if (playfield[row][column] !== 0) {
+                clearedRowsCount += 1;
+            }
+        }
+        if (PLAYFIELD_COLUMNS === clearedRowsCount) {
+            rowsFull.push(row);
         }
     }
-    return true;
+
+    return rowsFull;
 }
 
 
 function removeRows(rowsFull) {
-        if(rowsFull.length) {
-        playfield.splice(rowsFull[0], rowsFull.length);
-    }
-    rowsFull.forEach(()=> {
-        playfield.unshift(new Array(PLAYFIELD_COLUMNS).fill(0))
+    rowsFull.forEach(deleteRow => {
+        for(let row = deleteRow; row > 0; row--){
+            playfield[row] = playfield[row - 1];
+        }
+        playfield[0] = new Array(PLAYFIELD_COLUMNS).fill(0);
     })
 }
 
-function moveRowsDown(startRow) {
-    for (let row = startRow - 1; row >= 0; row--) {
-        for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
-            playfield[row + 1][column] = playfield[row][column];
-        }
-    }
-}
 
 export { clearFullRows, totalPoints }

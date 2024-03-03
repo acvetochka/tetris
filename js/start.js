@@ -1,17 +1,17 @@
-// import { isPaused } from "./variables.js";
+
 import { draw, init, startNewGame } from "../script.js";
-import { generatePlayField } from "./generate.js";
-import { moveTetrominoDown } from "./move.js";
+import { isGameOver, moveTetrominoDown } from "./move.js";
 import { duration } from "./level.js";
 import { toggleVolume, volumeOff } from "./volume.js";
 
 let gameInterval = null;
+let drawInterval = null;
 let isPaused = false;
-// let duration = 1000;
+
 const notification = document.querySelector(".notification");
-const icon = document.querySelector(".notification use");
+const icon = document.querySelector(".notification img");
 const startButton = document.querySelectorAll(".startButton");
-const startIcon = document.querySelector(".startButton use");
+const startIcon = document.querySelector(".startButton img");   
 const audio = document.querySelector('#audio');
 const startGameBtn = document.querySelector(".notification #new-game");
 
@@ -23,27 +23,20 @@ function onClickStart(e) {
     console.log(e.target);
     switch (btn.dataset.play) {
         case "start":
-            // console.log(startGameBtn);
-            if(startGameBtn.hasAttribute('id')){
+            if(startGameBtn.hasAttribute('id') || isGameOver){
                 startNewGame()
             } else {
                 start();
             }
-            
-            // console.log("start");
             break;
         case "pause":
             pause();
-            // console.log("pause");
             break;
         case "restart":
             init();
-            start();
-            // console.log("restart");
             break;
         case "volume":
             toggleVolume();
-            // console.log("volume");
             break;
         default:
             break;
@@ -54,30 +47,39 @@ function start() {
     clearGameInterval();
     isPaused = false;
     startInterval();
-    // audio.autoplay= true;
     if(!volumeOff){
         audio.play();
     }
-    startButton.forEach(elem => elem.setAttribute("data-play", "pause"))
-    startIcon.setAttribute('href', "./assets/sprite.svg#icon-pause")
-    icon.removeAttribute('href');
-    notification.style.height = 0;
-    notification.style.padding= 0;
+    startButton.forEach(elem => elem.setAttribute("data-play", "pause"));
+    startIcon.setAttribute('src', "./assets/pause.svg");
+
+    icon.removeAttribute('src');
+    notification.style.display= "none";
 
 }
 
+
+
 function pause() {
     clearGameInterval();
-    // audio.autoplay = false;
     isPaused = true;
-    // audio.setAttribute("muted", true);
-    // audio.setAttribute('autoplay', false);
     audio.pause();
+    changePauseToStart()
+    // startButton.forEach(elem => elem.setAttribute("data-play", "start"))
+    // startIcon.setAttribute('src', "./assets/play.svg");
+    icon.setAttribute('src', "./assets/play.svg" );
+    // icon.setAttribute('href', "./assets/sprite.svg#icon-play");
+    icon.style.cursor = "pointer";
+    // notification.style = style;
+    notification.style.display= "flex";
+    notification.style.padding= 0;
+    notification.style.backgroundColor = "transparent";
+    notification.style.boxShadow = "none"
+}
+
+function changePauseToStart() {
     startButton.forEach(elem => elem.setAttribute("data-play", "start"))
-    startIcon.setAttribute('href', "./assets/sprite.svg#icon-play")
-    icon.setAttribute('href', "./assets/sprite.svg#icon-play");
-    icon.style.cursor = "pointer"
-    notification.style.height = "auto";
+    startIcon.setAttribute('src', "./assets/play.svg");
 }
 
 function onIconClick(e) {
@@ -97,13 +99,14 @@ function startInterval() {
         moveTetrominoDown();
     }, duration);
 
-    setInterval(() => {
+    drawInterval = setInterval(() => {
         draw();
     }, 50);
 }
 
 function clearGameInterval() {
     clearInterval(gameInterval);
+    clearInterval(drawInterval);
 }
 
 export {
@@ -116,5 +119,6 @@ export {
     start,
     pause,
     toggleStartStop,
-    isPaused
+    isPaused,
+    changePauseToStart
 }
