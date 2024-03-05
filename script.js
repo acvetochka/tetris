@@ -15,7 +15,7 @@ const score = document.querySelector(".score");
 const notification = document.querySelector(".notification p");
 const buttonWrap = document.querySelector(".direction");
 const audio = document.querySelector("#audio");
-const startGame = document.querySelector(".notification #new-game");
+// const startGame = document.querySelector(".notification #new-game");
 const startGameIcon = document.querySelector(".notification .icon-play")
 const time = document.querySelector(".time");
 
@@ -30,11 +30,9 @@ function generate() {
     generateNewTetromino();
     cells = document.querySelectorAll('.grid div');
     newCells = document.querySelectorAll(".next div");
+    getVolume();
 }
 
-// setTimeout(()=> {
-    getVolume();
-// }, 50)
 
 generate();
 
@@ -63,8 +61,6 @@ function clearAll() {
     time.textContent = "00:00:00";
 }
 
-iconWrap.addEventListener('click', onIconClick);
-startBtn.addEventListener('click', onClickStart);
 
 function convertPositionToIndex(row, column, fieldColumns = PLAYFIELD_COLUMNS) {
     return row * fieldColumns + column;
@@ -146,17 +142,10 @@ export function draw() {
     drawTetromino();
 }
 
-function startNewGame() {
-    init();
-    getVolume();
-    toggleGameOver();
-    startGame.removeAttribute("id");
-    startGame.textContent = "";
-}
-
-startGameIcon.addEventListener("click", startNewGame);
+startGameIcon.addEventListener('click', onIconClick);
+startBtn.addEventListener('click', onClickStart);
 
 writeToLocalStorage();
 
-export { tetromino, startNewGame };
+export { tetromino};
 

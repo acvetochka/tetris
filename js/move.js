@@ -1,10 +1,10 @@
-import { draw, init, startNewGame } from "../script.js";
+import { draw, init} from "../script.js";
 import { playfield, tetromino, generateTetromino, changeTetromino, newTetromino } from "./generate.js";
 import { clearFullRows, totalPoints } from "./clearRows.js";
 import { randomColor } from "./helpers/randomColor.js";
 import { isValid } from "./validation.js";
 import { writeToLocalStorage } from "./writeToLocalStorage.js";
-import { clearGameInterval, pause, start, toggleStartStop, isPaused, startInterval, changePauseToStart } from "./start.js";
+import { clearGameInterval, pause, start, toggleStartStop, isPaused, startInterval, changePauseToStart, startNewGame } from "./start.js";
 import { changeLevel, level } from "./level.js";
 import { clearTime } from "./time.js";
 import { volumeOff } from "./volume.js";
