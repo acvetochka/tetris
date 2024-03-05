@@ -12,9 +12,6 @@ body {
     background-image: url("../assets/galaxy-fon.jpg");
     backdrop-filter: blur(150px);
     background-size: cover;
-    /* display: flex; */
-    /* justify-content: center;
-    align-items: center; */
     margin: 0 auto;
 }
 

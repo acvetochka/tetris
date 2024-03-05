@@ -13,8 +13,6 @@ const startButton = document.querySelectorAll(".startButton");
 const startIcon = document.querySelector(".startButton img");
 const audio = document.querySelector("#audio");
 const startGameBtn = document.querySelector(".notification p");
-// const startGame = document.querySelector(".notification #new-game");
-// const startGameIcon = document.querySelector(".notification .icon-play")
 
 function onClickStart(e) {
   e.preventDefault();

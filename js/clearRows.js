@@ -1,4 +1,4 @@
-import { generateTetromino, playfield } from "./generate.js";
+import { playfield } from "./generate.js";
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./variables.js";
 import { volumeOff } from "./volume.js";
 import { writeToLocalStorage } from "./writeToLocalStorage.js";

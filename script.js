@@ -1,27 +1,21 @@
 import { NEW_FIELD_COLUMNS, PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./js/variables.js";
-import { playfield, newTetromino, tetromino, rowTetro, generatePlayField, generateTetromino, generateNextField, generateNewTetromino } from "./js/generate.js"
-import { onKeyDown, moveTetrominoDown, onClickBrowser, toggleGameOver } from "./js/move.js";
+import { playfield, newTetromino, tetromino,  generatePlayField, generateTetromino, generateNextField, generateNewTetromino } from "./js/generate.js"
+import { onKeyDown,  onClickBrowser, toggleGameOver } from "./js/move.js";
 import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
-import { totalPoints } from "./js/clearRows.js";
-import { clearGameInterval, isPaused, onClickStart, onIconClick, start } from "./js/start.js";
-import { getVolume, toggleVolume, volumeOff } from "./js/volume.js";
+import { clearGameInterval, onClickStart, onIconClick, start } from "./js/start.js";
+import { getVolume } from "./js/volume.js";
 import { clearTime, getTime } from "./js/time.js";
 
 let cells;
 let newCells;
 const startBtn = document.querySelector(".buttonWrapper");
-const iconWrap = document.querySelector(".notification");
 const score = document.querySelector(".score");
 const notification = document.querySelector(".notification p");
 const buttonWrap = document.querySelector(".direction");
 const audio = document.querySelector("#audio");
-// const startGame = document.querySelector(".notification #new-game");
 const startGameIcon = document.querySelector(".notification .icon-play")
 const time = document.querySelector(".time");
 
-
-
-// init();
 
 function generate() {
     generatePlayField();
