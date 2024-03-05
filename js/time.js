@@ -1,15 +1,20 @@
 import { isPaused } from "./start.js";
+import { timeToLocalStorage } from "./writeToLocalStorage.js";
 
 let intervalId = null;
 let time = 0;
+let totalTime = JSON.parse(localStorage.getItem("time")) || 0;
 const timeEl = document.querySelector('.time');
+const totalTimeEl = document.querySelector('.total-time');
 
 function getTime() {
     time = 0;
     intervalId = setInterval(() => {
         if (!isPaused) {
             time += 1000;
-            convertAndUpdate(time);
+            timeEl.textContent = convertAndUpdate(time); 
+            convertTotalTime();
+
         }
     }, 1000);
 };
@@ -36,11 +41,19 @@ function addLeadingZero(value) {
 
 function convertAndUpdate(time){
     const convertTime = convertMs(time);
-    updateClockFace(convertTime);
+    return updateClockFace(convertTime);
 }
 
 function updateClockFace({ hours, minutes, seconds }) {
-    timeEl.textContent = `${addLeadingZero(hours)}:${addLeadingZero(minutes)}:${addLeadingZero(seconds)}`;
+    return `${addLeadingZero(hours)}:${addLeadingZero(minutes)}:${addLeadingZero(seconds)}`;
 }
 
-export { getTime, clearTime, time }
+function convertTotalTime() {
+    totalTime+=1000;
+    totalTimeEl.textContent = convertAndUpdate(totalTime)
+    timeToLocalStorage();
+}
+
+
+
+export { getTime, clearTime, totalTime, convertAndUpdate }

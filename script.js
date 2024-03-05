@@ -4,7 +4,7 @@ import { onKeyDown,  onClickBrowser, toggleGameOver } from "./js/move.js";
 import { levelToLocalStorage, writeToLocalStorage } from "./js/writeToLocalStorage.js";
 import { clearGameInterval, onClickStart, onIconClick, start } from "./js/start.js";
 import { getVolume } from "./js/volume.js";
-import { clearTime, getTime } from "./js/time.js";
+import { clearTime, convertAndUpdate, getTime, totalTime} from "./js/time.js";
 
 let cells;
 let newCells;
@@ -15,6 +15,7 @@ const buttonWrap = document.querySelector(".direction");
 const audio = document.querySelector("#audio");
 const startGameIcon = document.querySelector(".notification .icon-play")
 const time = document.querySelector(".time");
+const totalTimeEl = document.querySelector(".total-time")
 
 
 function generate() {
@@ -25,6 +26,7 @@ function generate() {
     cells = document.querySelectorAll('.grid div');
     newCells = document.querySelectorAll(".next div");
     getVolume();
+    totalTimeEl.textContent = convertAndUpdate(totalTime)
 }
 
 
