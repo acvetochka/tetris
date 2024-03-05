@@ -1,7 +1,7 @@
 import { NEW_FIELD_COLUMNS, PLAYFIELD_COLUMNS, PLAYFIELD_ROWS } from "./js/variables.js";
 import { playfield, newTetromino, tetromino,  generatePlayField, generateTetromino, generateNextField, generateNewTetromino } from "./js/generate.js"
 import { onKeyDown,  onClickBrowser, toggleGameOver } from "./js/move.js";
-import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
+import { levelToLocalStorage, writeToLocalStorage } from "./js/writeToLocalStorage.js";
 import { clearGameInterval, onClickStart, onIconClick, start } from "./js/start.js";
 import { getVolume } from "./js/volume.js";
 import { clearTime, getTime } from "./js/time.js";
@@ -141,6 +141,7 @@ startBtn.addEventListener('click', onClickStart);
 document.addEventListener('keydown', onKeyDown);
 
 writeToLocalStorage();
+levelToLocalStorage();
 
 export { tetromino};
 

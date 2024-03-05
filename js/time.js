@@ -43,4 +43,4 @@ function updateClockFace({ hours, minutes, seconds }) {
     timeEl.textContent = `${addLeadingZero(hours)}:${addLeadingZero(minutes)}:${addLeadingZero(seconds)}`;
 }
 
-export { getTime, clearTime }
+export { getTime, clearTime, time }
