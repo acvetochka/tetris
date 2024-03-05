@@ -138,6 +138,7 @@ export function draw() {
 
 startGameIcon.addEventListener('click', onIconClick);
 startBtn.addEventListener('click', onClickStart);
+document.addEventListener('keydown', onKeyDown);
 
 writeToLocalStorage();
 
