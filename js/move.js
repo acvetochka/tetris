@@ -176,7 +176,8 @@ function gameOverFunc() {
 }
 
 function toggleGameOver() {
-    isGameOver = !isGameOver;
+    // isGameOver = !isGameOver;
+    isGameOver = false;
 }
 
 export {

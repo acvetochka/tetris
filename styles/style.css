@@ -18,9 +18,10 @@ body {
     margin: 0 auto;
 }
 
-/* button {
+button {
     user-select: none;
-} */
+}
+
 p {
     text-shadow: 0 0 1.5vh #524cf0;
 }

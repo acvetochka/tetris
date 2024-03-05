@@ -4,7 +4,7 @@ import { onKeyDown, moveTetrominoDown, onClickBrowser, toggleGameOver } from "./
 import { writeToLocalStorage } from "./js/writeToLocalStorage.js";
 import { totalPoints } from "./js/clearRows.js";
 import { clearGameInterval, isPaused, onClickStart, onIconClick, start } from "./js/start.js";
-import { toggleVolume, volumeOff } from "./js/volume.js";
+import { getVolume, toggleVolume, volumeOff } from "./js/volume.js";
 import { clearTime, getTime } from "./js/time.js";
 
 let cells;
@@ -31,6 +31,10 @@ function generate() {
     cells = document.querySelectorAll('.grid div');
     newCells = document.querySelectorAll(".next div");
 }
+
+// setTimeout(()=> {
+    getVolume();
+// }, 50)
 
 generate();
 
@@ -144,6 +148,7 @@ export function draw() {
 
 function startNewGame() {
     init();
+    getVolume();
     toggleGameOver();
     startGame.removeAttribute("id");
     startGame.textContent = "";

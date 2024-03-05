@@ -1,8 +1,9 @@
 import { totalPoints } from "./clearRows.js";
+import { volumeOff } from "./volume.js";
 
-export const record = document.querySelector('.record');
+const record = document.querySelector('.record');
 
-export function writeToLocalStorage() {
+function writeToLocalStorage() {
     const recordStorage = localStorage.getItem("record");
     if(!recordStorage || recordStorage < totalPoints) {
         localStorage.setItem("record", totalPoints)
@@ -10,4 +11,14 @@ export function writeToLocalStorage() {
     } else {
             record.innerHTML = recordStorage;
     }
+}
+
+function volumeToLocalStorage() {
+    localStorage.setItem("volumeOff", JSON.stringify(volumeOff));
+}
+
+export {
+    record,
+    writeToLocalStorage,
+    volumeToLocalStorage
 }
