@@ -28,7 +28,7 @@ export function rotateTetromino() {
     const oldMatrix = tetromino.matrix;
     const rotatedMatrix = rotateMatrix(tetromino.matrix);
     tetromino.matrix = rotatedMatrix;
-    if (!isValid) {
+    if (!isValid()) {
         tetromino.matrix = oldMatrix;
     }
 }
