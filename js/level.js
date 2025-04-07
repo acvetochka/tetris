@@ -8,7 +8,7 @@ let duration = 1000;
 
 
 function changeLevel() {
-    if(totalPoints >= level*500) {
+    if(totalPoints >= level*300) {
         level++;
         duration= Math.floor(duration/1.2);
         clearGameInterval();
